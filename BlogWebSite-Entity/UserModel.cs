@@ -11,9 +11,9 @@ namespace BlogWebSite_Entity
     {
         [Key]
         public int UserID { get; set; }
-        public string Isim { get; set; }
-        public string Soyisim { get; set; }
-        public string Telefon { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Phone { get; set; }
         public string Mail { get; set; }
 
     }

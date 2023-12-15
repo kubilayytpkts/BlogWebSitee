@@ -10,10 +10,12 @@ namespace BlogWebSite_Entity
     public class AboutModel
     {
         [Key]
-        public int HakkındaID { get; set; }
-        public string? HakkındaBaslik { get; set; }
-        public string? HakkındaYazi { get; set; }
-        public string? HakkındaKısaYazi { get; set; }
+        public int AboutID { get; set; }
+        public string AboutPhoto { get; set; }
+        public string? AboutTitle { get; set; }
+        public string? AboutText { get; set; }
+        public string? AboutShortText { get; set; }
+        public string? UserStatusTitle { get; set; }
 
     }
 }
