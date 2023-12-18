@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime;
 using System.Text;
@@ -9,7 +10,8 @@ namespace BlogWebSite_Entity
 {
     public class QuotesModel
     {
-        public string QuotesID { get; set; }
+		[Key]
+		public int QuotesID { get; set; }
         public string QuotesTitle { get; set; }
         public string QuotesDescription { get; set; }
         public string QuotesWriterName { get; set; }
