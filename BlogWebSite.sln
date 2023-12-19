@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogWebSite", "BlogWebSite\BlogWebSite.csproj", "{E93C876A-72B5-485A-9926-ED66D61A96DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogWebSite-DataAccess", "DataAccess\BlogWebSite-DataAccess.csproj", "{2A2D4CC0-7C49-4693-8245-69659A93AA7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogWebSite.DataAccess", "DataAccess\BlogWebSite.DataAccess.csproj", "{2A2D4CC0-7C49-4693-8245-69659A93AA7E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogWebSite-BussinessLayer", "BlogWebSite-BussinessLayer\BlogWebSite-BussinessLayer.csproj", "{5BC8CC2F-89D5-46FA-B0CE-EBE9B8A43564}"
 EndProject

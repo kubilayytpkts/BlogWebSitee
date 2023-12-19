@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlogWebSite-Entity\BlogWebSite-Entity.csproj" />
+    <ProjectReference Include="..\DataAccess\BlogWebSite.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

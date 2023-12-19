@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlogWebSite-BussinessLayer\BlogWebSite-BussinessLayer.csproj" />
     <ProjectReference Include="..\BlogWebSite-Entity\BlogWebSite-Entity.csproj" />
   </ItemGroup>
 
