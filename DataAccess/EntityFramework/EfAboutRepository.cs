@@ -11,6 +11,5 @@ namespace BlogWebSite.DataAccess.EntityFramework
 {
 	public class EfAboutRepository:GenericRepository<AboutModel>,IAboutDal
 	{
-
 	}
 }

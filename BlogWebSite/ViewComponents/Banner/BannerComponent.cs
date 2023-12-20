@@ -1,5 +1,6 @@
 ﻿using BlogWebSite.DataAccess.EntityFramework;
 using BlogWebSite_BussinessLayer.Manager;
+using BlogWebSite_Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogWebSite.ViewComponents.Banner
@@ -10,8 +11,8 @@ namespace BlogWebSite.ViewComponents.Banner
         public IViewComponentResult Invoke()
         {
             var value = bannerManager.GetById(1);
-
-            return View(value);
+            ViewBag.bannerValue = new List<BannerModel> { value };
+            return View();
         }
     }
 }

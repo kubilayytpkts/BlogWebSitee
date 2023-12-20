@@ -11,11 +11,12 @@ namespace BlogWebSite_Entity
     {
         [Key]
         public int AboutID { get; set; }
-        public string AboutPhoto { get; set; }
+        public string? AboutPhoto { get; set; }
         public string? AboutTitle { get; set; }
         public string? AboutText { get; set; }
         public string? AboutShortText { get; set; }
         public string? UserStatusTitle { get; set; }
+        public bool? Status { get; set; }
 
     }
 }
