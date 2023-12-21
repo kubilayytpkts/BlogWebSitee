@@ -15,5 +15,6 @@ namespace BlogWebSite_Entity
         public string QuotesTitle { get; set; }
         public string QuotesDescription { get; set; }
         public string QuotesWriterName { get; set; }
+        public bool Status { get; set; }
     }
 }

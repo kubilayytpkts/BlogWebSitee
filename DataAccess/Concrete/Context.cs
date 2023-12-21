@@ -18,5 +18,6 @@ namespace BlogWebSite.DataAccess.Concrete
 		public DbSet<QuotesModel> Quotes { get; set; }
 		public DbSet<SocialMediaModel> SocialMedias { get; set; }
 		public DbSet<UserModel> Users { get; set; }
+		public DbSet<CommunicationModel> Communication { get; set; }
     }
 } 

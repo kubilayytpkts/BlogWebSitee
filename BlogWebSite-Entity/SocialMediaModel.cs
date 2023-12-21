@@ -10,9 +10,9 @@ namespace BlogWebSite_Entity
     public class SocialMediaModel
     {
         [Key]
-        public int SocialMediID { get; set; }
+        public int SocialMediaID { get; set; }
         public string TwitterLink { get; set; }
         public string InstagramLink { get; set; }
-        public string YoutubeLink { get; set; }
+        public string LinkedinLink { get; set; }
     }
 }

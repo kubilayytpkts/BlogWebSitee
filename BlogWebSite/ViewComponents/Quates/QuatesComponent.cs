@@ -10,7 +10,7 @@ namespace BlogWebSite.ViewComponents.Quates
 		public IViewComponentResult Invoke()
 		{
 		   var quotesValue=quotesManager.ListAll();
-		   ViewBag.quoteValue = quotesValue;
+		   ViewBag.quotesValue = quotesValue;
 			return View();
 		}
 	}

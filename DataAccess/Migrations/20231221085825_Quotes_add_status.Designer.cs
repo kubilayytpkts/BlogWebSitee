@@ -4,6 +4,7 @@ using BlogWebSite.DataAccess.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogWebSiteDataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231221085825_Quotes_add_status")]
+    partial class Quotes_add_status
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,34 +146,6 @@ namespace BlogWebSiteDataAccess.Migrations
                     b.ToTable("Categorys");
                 });
 
-            modelBuilder.Entity("BlogWebSite_Entity.CommunicationModel", b =>
-                {
-                    b.Property<int>("ComID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ComID"), 1L, 1);
-
-                    b.Property<DateTime>("ComDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ComDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ComEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ComName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ComID");
-
-                    b.ToTable("Communication");
-                });
-
             modelBuilder.Entity("BlogWebSite_Entity.FeatureCounterModel", b =>
                 {
                     b.Property<int>("FeatureID")
@@ -251,17 +225,13 @@ namespace BlogWebSiteDataAccess.Migrations
 
             modelBuilder.Entity("BlogWebSite_Entity.SocialMediaModel", b =>
                 {
-                    b.Property<int>("SocialMediaID")
+                    b.Property<int>("SocialMediID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SocialMediaID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SocialMediID"), 1L, 1);
 
                     b.Property<string>("InstagramLink")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LinkedinLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -269,7 +239,11 @@ namespace BlogWebSiteDataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SocialMediaID");
+                    b.Property<string>("YoutubeLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SocialMediID");
 
                     b.ToTable("SocialMedias");
                 });
@@ -295,10 +269,6 @@ namespace BlogWebSiteDataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -1,46 +1,45 @@
-﻿<footer class="site-footer">
+﻿@using BlogWebSite_Entity
+@model BlogWebSite_Entity.CommunicationModel
+
+<footer class="site-footer">
 	<div class="site-container">
 		<div class="footer-inner">
 			<div class="footer-info">
 				<div class="footer-info__left">
-					<img src="~/author/images/footer-img.jpg" alt="about me image">
-					<p>Read more about me</p>
+					<img src="~/author/images/Atatürküm.png" alt="about me image">
 				</div>
 				<div class="footer-info__right">
-					<h5>Get In Touch</h5>
-					<p class="footer-phone">Phone: +958734902847</p>
-					<p>Email : Jhone@Example.com</p>
+					<h5>~İletişim~</h5>
+					<p style="color:white;">@ViewBag.userValue</p>
 					<div class="social-icons">
-						<a href="#" target="_blank"><img src="~/author/images/social-twitter.png" alt="social icon"></a>
-						<a href="#" target="_blank"><img src="~/author/images/social-pinterest.png" alt="social icon"></a>
-						<a href="#" target="_blank"><img src="~/author/images/social-youtube.png" alt="social icon"></a>
-						<a href="#" target="_blank"><img src="~/author/images/social-twitter.png" alt="social icon"></a>
+						@foreach (var item in ViewBag.socialMediaValue)
+						{
+						<a href="@item.TwitterLink" target="_blank"><img src="~/author/images/social-twitter.png" alt="social icon"></a>
+						<a href="@item.InstagramLink" target="_blank"><img src="~/author/images/instagram.jpg" alt="social icon"></a>
+						<a href="@item.LinkedinLink" target="_blank"><img src="~/author/images/Linkedin.png" alt="social icon"></a>
+						}
 					</div>
 				</div>
 			</div>
 			<div class="footer-contact-form">
-				<h5>Contact Form</h5>
-				<form class="contact-form">
+				<h5>~İletişim Formu~</h5>
+				@using (Html.BeginForm("AddCommunication", "Communication",FormMethod.Post))
+				{
 					<div class="contact-form__input">
-						<input type="text" name="name" placeholder="Name">
-						<input type="email" name="email" placeholder="Email">
+						@Html.TextBoxFor(x=>x.ComName,new {@class="form-control",@required="",@placeholder="İsim Soyisim"})
+						@Html.TextBoxFor(x=>x.ComEmail,new {@class="form-control",@required="",@placeholder="E-mail Adresi"})
 					</div>
-					<textarea></textarea>
-					<input type="submit" name="submit" value="Submit" class="submit-button">
-				</form>
+					<div >
+						@Html.TextAreaFor(x=>x.ComDescription,new {@class="form-control",@required="",@placeholder="Mesajınız..."})
+						<input type="submit" name="submit" value="Gönder" placeholder="İçerik" class="submit-button">
+					</div>
+				}
 			</div>
 		</div>
 	</div>
 	<div class="footer-bottom">
 		<div class="site-container footer-bottom-inner">
-			<p>© 2019 Author | Design by <a href="https://freehtml5.co/" target="_blank">freehtml5.co</a> | All rights Reserved.</p>
-			<div class="footer-bottom__img">
-				<img src="~/author/images/footer-mastercard.png" alt="footer image">
-				<img src="~/author/images/footer-paypal.png" alt="footer image">
-				<img src="~/author/images/footer-visa.png" alt="footer image">
-				<img src="~/author/images/footer-fedex.png" alt="footer image">
-				<img src="~/author/images/footer-dhl.png" alt="footer image">
-			</div>
-		</div>
+			<p>© @DateTime.Now.Year Author | Design by Kubilay Topaktaş <a href="" target="_blank"></a> | All rights Reserved.</p>
+		</div>		  
 	</div>
 </footer>
