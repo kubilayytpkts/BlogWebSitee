@@ -23,7 +23,7 @@
 			</div>
 			<div class="footer-contact-form">
 				<h5>~İletişim Formu~</h5>
-				@using (Html.BeginForm("AddCommunication", "Communication",FormMethod.Post))
+				@* @using (Html.BeginForm("SendMail", "EmailService", FormMethod.Post))
 				{
 					<div class="contact-form__input">
 						@Html.TextBoxFor(x=>x.ComName,new {@class="form-control",@required="",@placeholder="İsim Soyisim"})
@@ -33,7 +33,8 @@
 						@Html.TextAreaFor(x=>x.ComDescription,new {@class="form-control",@required="",@placeholder="Mesajınız..."})
 						<input type="submit" name="submit" value="Gönder" placeholder="İçerik" class="submit-button">
 					</div>
-				}
+				} *@
+				<a href="/EmailService/SendMail" type="button">yönlendirme</a>
 			</div>
 		</div>
 	</div>

@@ -14,7 +14,6 @@ namespace BlogWebSite_Entity
         public int ComID { get; set; }
         public string ComName { get; set; }
         public string ComEmail { get; set; }
-        public DateTime ComDateTime { get; set; }
         public string ComDescription { get; set; }
     }
 }

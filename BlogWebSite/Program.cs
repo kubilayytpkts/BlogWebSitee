@@ -1,7 +1,11 @@
+using BlogWebSite_BussinessLayer.Manager;
+using BlogWebSite_BussinessLayer.Service;
+using NETCore.MailKit.Core;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddTransient<BlogWebSite_BussinessLayer.Service.IEmailService, EmailManager>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 var app = builder.Build();
