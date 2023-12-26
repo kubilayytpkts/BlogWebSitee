@@ -22,25 +22,13 @@
 				</div>
 			</div>
 			<div class="footer-contact-form">
-				<h5>~İletişim Formu~</h5>
-				@* @using (Html.BeginForm("SendMail", "EmailService", FormMethod.Post))
-				{
-					<div class="contact-form__input">
-						@Html.TextBoxFor(x=>x.ComName,new {@class="form-control",@required="",@placeholder="İsim Soyisim"})
-						@Html.TextBoxFor(x=>x.ComEmail,new {@class="form-control",@required="",@placeholder="E-mail Adresi"})
-					</div>
-					<div >
-						@Html.TextAreaFor(x=>x.ComDescription,new {@class="form-control",@required="",@placeholder="Mesajınız..."})
-						<input type="submit" name="submit" value="Gönder" placeholder="İçerik" class="submit-button">
-					</div>
-				} *@
-				<a href="/EmailService/SendMail" type="button">yönlendirme</a>
+				@await Html.PartialAsync("~/Views/EmailService/SendMail.cshtml")
 			</div>
 		</div>
 	</div>
 	<div class="footer-bottom">
 		<div class="site-container footer-bottom-inner">
-			<p>© @DateTime.Now.Year Author | Design by Kubilay Topaktaş <a href="" target="_blank"></a> | All rights Reserved.</p>
+			<p>© @DateTime.Now.Year Author | Design by Kubilay T. <a href="" target="_blank"></a> | All rights Reserved.</p>
 		</div>		  
 	</div>
 </footer>

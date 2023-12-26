@@ -1,6 +1,9 @@
-﻿using BlogWebSite.DataAccess.EntityFramework;
+﻿using BlogWebSite.Controllers;
+using BlogWebSite.DataAccess.EntityFramework;
 using BlogWebSite_BussinessLayer.Manager;
+using BlogWebSite_Entity;
 using Microsoft.AspNetCore.Mvc;
+using NETCore.MailKit.Core;
 
 namespace BlogWebSite.ViewComponents.Footer
 {
@@ -8,6 +11,7 @@ namespace BlogWebSite.ViewComponents.Footer
 	{
 		UserManager userManager = new UserManager(new EfUserModelRepository());
 		SocialMediaManager socialMediaManager=new SocialMediaManager(new EfSocialMediaRepository());
+		EmailServiceController emailServiceController = new EmailServiceController(new EmailManager());
 		public IViewComponentResult Invoke()
 		{
 			int userId = 2;
@@ -26,5 +30,6 @@ namespace BlogWebSite.ViewComponents.Footer
 			
 			return View();
 		}
+		
 	}
 }
