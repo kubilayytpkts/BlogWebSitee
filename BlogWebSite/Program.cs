@@ -30,4 +30,3 @@ app.MapControllerRoute(
     pattern: "{controller=Blog}/{action=Index}/{id?}");
 
 app.Run();
-

@@ -1,4 +1,6 @@
-﻿
+﻿@using BlogWebSite_Entity
+@model BlogWebSite_Entity.BlogModel
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/Home_Layout.cshtml";
@@ -8,36 +10,19 @@
 	<div class="site-container">
 		<h2 class="universal-h2 universal-h2-bckg">Bloglarım</h2>
 		<div class="blog-slider blog-inner">
+			@foreach (var item in ViewBag.blogValue)
+			{
 			<div class="single-blog">
 				<div class="single-blog__img">
-					<img src="~/author/images/blog1.jpg" alt="blog image">
+					<img src="@item.BlogImage" alt="blog image" style="max-width: 100%; height: auto;">
 				</div>
 				<div class="single-blog__text">
-					<h4>The Journey Under the Waves</h4>
-					<span>On August 28, 2015</span>
-					<p>Quisque vel sapi nec lacus adipis cing bibendum nullam porta lites laoreet aliquam.velitest, tempus a ullamcorper et, lacinia mattis mi. Cras arcu nulla, blandit id cursus et, ultricies eu leo.</p>
+					<h4>@item.BlogTitle </h4>
+					<span>@item.BlogDateTime.ToString("dd.MM.yyyy")</span>
+					<p>@item.BlogDescription</p>
 				</div>
 			</div>
-			<div class="single-blog">
-				<div class="single-blog__img">
-					<img src="~/author/images/blog2.jpg" alt="blog image">
-				</div>
-				<div class="single-blog__text">
-					<h4>The Journey Under the Waves</h4>
-					<span>On August 28, 2015</span>
-					<p>Quisque vel sapi nec lacus adipis cing bibendum nullam porta lites laoreet aliquam.velitest, tempus a ullamcorper et, lacinia mattis mi. Cras arcu nulla, blandit id cursus et, ultricies eu leo.</p>
-				</div>
-			</div>
-			<div class="single-blog">
-				<div class="single-blog__img">
-					<img src="~/author/images/blog2.jpg" alt="blog image">
-				</div>
-				<div class="single-blog__text">
-					<h4>The Journey Under the Waves</h4>
-					<span>On August 28, 2015</span>
-					<p>Quisque vel sapi nec lacus adipis cing bibendum nullam porta lites laoreet aliquam.velitest, tempus a ullamcorper et, lacinia mattis mi. Cras arcu nulla, blandit id cursus et, ultricies eu leo.</p>
-				</div>
-			</div>
+			}
 		</div>
 	</div>
 </section>

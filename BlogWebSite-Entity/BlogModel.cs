@@ -19,6 +19,6 @@ namespace BlogWebSite_Entity
 		public bool Status { get; set; }
         public int CategoryID { get; set; }
         public CategoryModel Category { get; set; }
-
+        public List<CommentModel> Comment{ get; set; }
     }
 }
