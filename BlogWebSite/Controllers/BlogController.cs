@@ -23,6 +23,10 @@ namespace BlogWebSite.Controllers
 
             return View();
         }
+        public IActionResult GetByBlogId(int id)
+        {
+            return View();
+        }
 
         public string GetPreview(string description,int wordCount )
         {

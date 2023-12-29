@@ -22,17 +22,20 @@ namespace BlogWebSite.Controllers
 
             try
             {
-                emailService.SendEmailAsync(email, subject, message);
-                success = true;
+                if (com.ComDescription != null && com.ComEmail != null && com.ComName != null)
+                {
+                    await emailService.SendEmailAsync(email, subject, message);
+                    success = true;
+                }
+                else
+                    success = false;
+               
             }
             catch (Exception ex)
             {
                 // Hata yönetimi gerekiyorsa burada işlem yapabilirsiniz.
             }
-
-            ViewBag.Success = success;
-
-            return View("~/Views/Blog/Index.cshtml"); // veya istediğiniz başka bir view adı
+            return Json(success);   
         }
 
         public IActionResult Index()

@@ -6,6 +6,13 @@
     Layout = "~/Views/Shared/Home_Layout.cshtml";
 }
 
+<style>
+	a {
+		color: inherit; /* Bağlantı rengini etkilemez, etiketin içindeki rengi kullanır */
+		text-decoration: none; /* Mavi çizgiyi kaldırır */
+	}
+</style>
+
 <section class="fh5co-blog">
 	<div class="site-container">
 		<h2 class="universal-h2 universal-h2-bckg">Bloglarım</h2>
@@ -17,7 +24,9 @@
 					<img src="@item.BlogImage" alt="blog image" style="max-width: 100%; height: auto;">
 				</div>
 				<div class="single-blog__text">
-					<h4>@item.BlogTitle </h4>
+						<a href="/Blog/GetByBlogId">
+							<h4>@item.BlogTitle</h4>
+						</a>
 					<span>@item.BlogDateTime.ToString("dd.MM.yyyy")</span>
 					<p>@item.BlogDescription</p>
 				</div>
