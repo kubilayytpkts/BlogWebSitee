@@ -8,5 +8,9 @@ namespace BlogWebSite.Controllers
 		{
 			return View();
 		}
+		public IActionResult AddComment()
+		{
+			return View();	
+		}
 	}
 }
