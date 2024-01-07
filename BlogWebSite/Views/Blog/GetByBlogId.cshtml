@@ -1,5 +1,9 @@
-﻿
+﻿@using BlogWebSite_Entity
+@using BlogWebSite.Controllers
+@model List<BlogModel>
+
 @{
+	var blogId = ViewBag.blogId;
 }
 
 <!DOCTYPE html>
@@ -51,93 +55,29 @@
 		<section>
 			<div class="row">
 				<div class="col-md-8">
+					@foreach(var item in Model)
+					{
 					<article class="blog-post">
 						<div class="blog-post-image">
-							<a href="post.html"><img src="/author/post/images/seksen.jpg" alt=""></a>
+							<a href="post.html"><img src="@item.BlogImage" alt=""></a>
 						</div>
 						<div class="blog-post-body">
-							<h2><a href="post.html"></a>1980 ASKERİ DARBESİ ZEMİNİN OLUŞUMU VE ETKİLERİ</h2>
-							<div class="post-meta"><span>by <a href="#">Jamie Mooze</a></span>/<span><i class="fa fa-clock-o"></i>March 14, 2015</span>/<span><i class="fa fa-comment-o"></i> <a href="#">343</a></span></div>
+							<h2><a href="post.html"></a>@item.BlogTitle</h2>
+								<div class="post-meta"><span><a>Şeyma Ercan</a></span>/<span><i class="fa fa-clock-o"></i>@item.BlogDateTime.Value.ToString("dd.MM.yyyy")</span><span><i></i> <a href="#"></a></span></div>
 							<div class="blog-post-text">
 
-								<p>"Türk Silahlı Kuvvetleri ülkemizin bugünkü hayati sorunları karşısında siyasi partilerimizden bir an önce, milli menfaatlerimizi ön plana alarak, anayasamızın ilkeleri doğrultusunda ve Atatürkçü bir görüşle bir araya gelerek anarşi, terör ve bölücülük gibi devleti çökertmeye yönelik her türlü hareketlere karşı bütün önlemleri müştereken almalarını ve diğer anayasal kuruluşların da bu yönde yardımcı olmalarını ısrarla istemektedir."  Askeri muhtırasıyla hükümete baskı ve tehdit yoluyla yönetimin MGK’ya geçmesi isteniyordu. Ordunun bu müdahaleyi yapmasının sebebi ise Türkiye’de sağ ve sol siyasi görüş destekleyicilerin büyük problem yaratması idi. Sol merkezli partilerin otoritesi yalnızca ideolojik olarak etken iken sağ görüşte ise milliyetçilik hakimdi. Bu süreçte milliyetçilik görüşüne bağlı olan ülkücülük kavramı ve ülkü ocakları ortadaydı diğer yandan akıncılar olarak görülen şeriat destekçileri yapılanmıştı ve sol düşünce de ise yapılanmış Demokratik İşçiler Sendikası Konfederasyonu ve Dev-genç vb. yapılanmalar mevcuttu. Bu dönemde bulunan siyasi partiler ise MSP, AP, MHP ve CHP idi. Diğer yandan Türkiye ekonomisinde büyük sıkıntılar çıkmaya başlamıştı ve artarak da devam ediyordu. Hükümette bulunan dönemin başbakanı CHP genel parti başkanı Bülent Ecevit’in siyasi otoritesi giderek zayıflıyordu. Hatta bu sağ-sol çatışması o kadar büyümüştü ki ‘’1997, 1252 ölü ve 5400 yaralı ile kapanmıştı.’’ (12 Eylül belgeseli 6.bölüm,9.30 dakika,32.Gün). Türkiye’nin doğu ve güneydoğu Anadolu kısmı da oldukça sıkıntılıydı. Bir Kürt sorunu cereyan ediyordu. Ordu ise bu durumdan mütevellit duruma el koymaya karar verdi. Dönemin Genelkurmay başkanı Kenan Evren ve dönemin üst düzey komutanları ile birlikte hükümete verdikleri muhtıra ile yönetime el koydular ve bu süreçte MGK tüm siyasi partileri kapatmıştı ve dönemin parti başkanları sürgün edilmişti. Dönemin Cumhurbaşkanı Fahri Korutürk’ün emekli olmasıyla Kenan Evren cumhurbaşkanı olmuştur ve tekrardan çok partili sisteme geçilmek istenmiştir bununla birlikte yeni partiler açıldı. Türkiye 1980 darbesi sonrası yeni bir sayfa açılmış olmakla beraber öncesinde var olan siyasi partilerinde etkileri zayıflamış lakin devamı niteliğinde açılan yeni siyasi partiler Türkiye’nin geleceğini oluşturma görevi üstlenmiştir. Bu partilerin arasında en çok öne çıkan da merkez sağ görüşünde olan Anavatan partisi yani ANAP’tı, Parti genel başkanı ise Turgut Özal’dı. 1980’li yıllara gelindiğinde ise Türkiye’de Turgut Özal’ın önderliğinde ve yeni sağın rüzgârı yönünde köklü yapısal dönüşümler yaşanmıştır. Bu yeni dönemde devlet-toplum ilişkileri ve iktidar pratikleri dünyanın gidişi yönünde bir seyir izlemiştir. Darbe sonrası sağ partilerin halk üzerindeki etkileri artarken sol görüşlü partilerin ise popülerliği azalmıştır. </p>
+								<p>@item.BlogDescription</p>
 							</div>
 						</div>
 					</article>
+					}
 				</div>
 				<div class="col-md-4 sidebar-gutter">
 					<aside>
 						<!-- sidebar-widget -->
-						<div class="sidebar-widget">
-							<h3 class="sidebar-title">About Me</h3>
-							<div class="widget-container widget-about">
-								<a href="post.html"><img src="/author/post/images/author.jpg" alt=""></a>
-								<h4>Jamie Mooz</h4>
-								<div class="author-title">Designer</div>
-								<p>While everyone’s eyes are glued to the runway, it’s hard to ignore that there are major fashion moments on the front row too.</p>
-							</div>
-						</div>
+						@await Component.InvokeAsync("AboutComponentBlog")
 						<!-- sidebar-widget -->
-						<div class="sidebar-widget">
-							<h3 class="sidebar-title">Featured Posts</h3>
-							<div class="widget-container">
-								<article class="widget-post">
-									<div class="post-image">
-										<a href="post.html"><img src="/author/post/images/90x60-1.jpg" alt=""></a>
-									</div>
-									<div class="post-body">
-										<h2><a href="post.html">The State of the Word 2014</a></h2>
-										<div class="post-meta">
-											<span><i class="fa fa-clock-o"></i> 2. august 2015</span> <span><a href="post.html"><i class="fa fa-comment-o"></i> 23</a></span>
-										</div>
-									</div>
-								</article>
-								<article class="widget-post">
-									<div class="post-image">
-										<a href="post.html"><img src="/author/post/images/90x60-2.jpg" alt=""></a>
-									</div>
-									<div class="post-body">
-										<h2><a href="post.html">Why The Muppets Needs to Channel 30 Rock</a></h2>
-										<div class="post-meta">
-											<span><i class="fa fa-clock-o"></i> 2. august 2015</span> <span><a href="post.html"><i class="fa fa-comment-o"></i> 23</a></span>
-										</div>
-									</div>
-								</article>
-								<article class="widget-post">
-									<div class="post-image">
-										<a href="post.html"><img src="/author/post/images/90x60-3.jpg" alt=""></a>
-									</div>
-									<div class="post-body">
-										<h2><a href="post.html">The State of the Word 2014</a></h2>
-										<div class="post-meta">
-											<span><i class="fa fa-clock-o"></i> 2. august 2015</span> <span><a href="post.html"><i class="fa fa-comment-o"></i> 23</a></span>
-										</div>
-									</div>
-								</article>
-								<article class="widget-post">
-									<div class="post-image">
-										<a href="post.html"><img src="/author/post/images/90x60-4.jpg" alt=""></a>
-									</div>
-									<div class="post-body">
-										<h2><a href="post.html">Vintage-Inspired Finds for Your Home</a></h2>
-										<div class="post-meta">
-											<span><i class="fa fa-clock-o"></i> 2. august 2015</span> <span><a href="post.html"><i class="fa fa-comment-o"></i> 23</a></span>
-										</div>
-									</div>
-								</article>
-								<article class="widget-post">
-									<div class="post-image">
-										<a href="post.html"><img src="/author/post/images/90x60-5.jpg" alt=""></a>
-									</div>
-									<div class="post-body">
-										<h2><a href="post.html">The State of the Word 2014</a></h2>
-										<div class="post-meta">
-											<span><i class="fa fa-clock-o"></i> 2. august 2015</span> <span><a href="post.html"><i class="fa fa-comment-o"></i> 23</a></span>
-										</div>
-									</div>
-								</article>
-							</div>
-						</div>
+						@await Html.PartialAsync("GetLatestBlog",new BlogController())
 						<!-- sidebar-widget -->
 						<div class="sidebar-widget">
 							<h3 class="sidebar-title">Socials</h3>
@@ -168,11 +108,13 @@
 							</div>
 						</div>
 				</div>
-				@await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
+				@* @await Component.InvokeAsync("CommentListByBlog",new {id=(int)blogId}) *@
 				</aside>
 			</div>
+			@await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
 	</div>
 	</section>
+
 	</div><!-- /.container -->
 
 	<!-- Bootstrap core JavaScript

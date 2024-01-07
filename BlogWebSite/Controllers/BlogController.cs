@@ -25,9 +25,19 @@ namespace BlogWebSite.Controllers
         }
         public IActionResult GetByBlogId(int id)
         {
+            var resultBlog=blogManager.ListAll().Where(x=>x.BlogID==id).ToList();
+
+
+            ViewBag.blogId = id;
+            return View(resultBlog);
+        }
+
+        public IActionResult GetLatestBlog()
+        {
             return View();
         }
 
+        //Blog açıklama yazısının bir kısmını verir 
         public string GetPreview(string description,int wordCount )
         {
 			if (string.IsNullOrEmpty(description))

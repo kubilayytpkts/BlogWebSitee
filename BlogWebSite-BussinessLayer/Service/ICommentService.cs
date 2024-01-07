@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace BlogWebSite_BussinessLayer.Service
 {
-	public interface IEmailService:IGenericService<CommunicationModel>
+	public interface ICommentService:IGenericService<CommentModel>
 	{
-		Task SendEmailAsync(string email, string subject, string message);
+		public List<CommentModel> ListAll(int id);
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using BlogWebSite_BussinessLayer.Service;
+using BlogWebSite_Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace BlogWebSite_BussinessLayer.Manager
 {
 	public class EmailManager : IEmailService
 	{
+
 		public Task SendEmailAsync(string email, string subject, string message)
 		{
 			var client = new SmtpClient("smtp-mail.outlook.com", 587)
@@ -25,6 +27,31 @@ namespace BlogWebSite_BussinessLayer.Manager
 								to: email,
 								subject,
 								message));
+		}
+
+		public void Add(CommunicationModel value)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Delete(CommunicationModel value)
+		{
+			throw new NotImplementedException();
+		}
+
+		public CommunicationModel GetById(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<CommunicationModel> ListAll()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Update(CommunicationModel value)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
