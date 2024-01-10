@@ -16,4 +16,15 @@ namespace BlogWebSite.ViewComponents.SocialMedia
 			return View();
 		}
 	}
+	public class SocialMediaBlogComponent : ViewComponent
+	{
+		SocialMediaManager socialMediaManager = new SocialMediaManager(new EfSocialMediaRepository());
+		public IViewComponentResult Invoke()
+		{
+			var value = socialMediaManager.ListAll();
+			ViewBag.socialMediaValue = value;
+
+			return View();
+		}
+	}
 }

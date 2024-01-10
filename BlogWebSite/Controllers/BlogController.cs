@@ -1,7 +1,10 @@
-﻿using BlogWebSite.DataAccess.EntityFramework;
+﻿using BlogWebSite.DataAccess.Concrete;
+using BlogWebSite.DataAccess.EntityFramework;
 using BlogWebSite_BussinessLayer.Manager;
 using BlogWebSite_Entity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace BlogWebSite.Controllers
 {
@@ -25,16 +28,13 @@ namespace BlogWebSite.Controllers
         }
         public IActionResult GetByBlogId(int id)
         {
-            var resultBlog=blogManager.ListAll().Where(x=>x.BlogID==id).ToList();
+            var dbContext = new Context();
 
-
+			var result=dbContext.Blogs.Include(b => b.Category).FirstOrDefault(c=>c.BlogID==id);
+			var resultBlog = new List<BlogModel> { result };
             ViewBag.blogId = id;
-            return View(resultBlog);
-        }
 
-        public IActionResult GetLatestBlog()
-        {
-            return View();
+            return View(resultBlog);
         }
 
         //Blog açıklama yazısının bir kısmını verir 
@@ -50,7 +50,7 @@ namespace BlogWebSite.Controllers
 			if (words.Length <= wordCount)
                 return description;
 
-           description = string.Join(" ", words.Take(wordCount)) + "...";
+           description = string.Join(" ", words.Take(wordCount)) + "    ...";
 
             return description;
         }

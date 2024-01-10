@@ -1,0 +1,19 @@
+﻿@using BlogWebSite_Entity
+@model List<SocialMediaModel>
+
+<div class="sidebar-widget">
+    <h3 class="sidebar-title">Sosyal Medya</h3>
+    <div class="widget-container">
+        <div class="widget-socials">
+            @foreach (var item in Model)
+            {
+                <a href="@item.TwitterLink" target="_blank"><i class="fa fa-twitter"></i></a>
+                <a href="@item.InstagramLink" target="_blank"><i class="fa fa-instagram"></i></a>
+                <a href="@item.LinkedinLink" target="_blank"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-reddit"></i></a>
+            }
+        </div>
+    </div>
+</div>

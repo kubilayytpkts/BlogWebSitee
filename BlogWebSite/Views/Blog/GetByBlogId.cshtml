@@ -50,7 +50,7 @@
 
 	<div class="container">
 		<header>
-			<a href="index.html"><img src="/author/post/images/logo_ercan.jpg"></a>
+			@* <a href="index.html"><img src="/author/post/images/logo_ercan.jpg"></a> *@
 		</header>
 		<section>
 			<div class="row">
@@ -63,7 +63,7 @@
 						</div>
 						<div class="blog-post-body">
 							<h2><a href="post.html"></a>@item.BlogTitle</h2>
-								<div class="post-meta"><span><a>Şeyma Ercan</a></span>/<span><i class="fa fa-clock-o"></i>@item.BlogDateTime.Value.ToString("dd.MM.yyyy")</span><span><i></i> <a href="#"></a></span></div>
+								<div class="post-meta"><span><a>Şeyma Ercan</a></span>/<span><i class="fa fa-clock-o"></i>@item.BlogDateTime.Value.ToString("dd.MM.yyyy")</span>/<span><a>@item.Category.CategoryName</a></span></div>
 							<div class="blog-post-text">
 
 								<p>@item.BlogDescription</p>
@@ -75,38 +75,13 @@
 				<div class="col-md-4 sidebar-gutter">
 					<aside>
 						<!-- sidebar-widget -->
-						@await Component.InvokeAsync("AboutComponentBlog")
+						@* @await Component.InvokeAsync("AboutComponentBlog") *@
 						<!-- sidebar-widget -->
-						@await Html.PartialAsync("GetLatestBlog",new BlogController())
+						@await Component.InvokeAsync("GetLastBlog")
 						<!-- sidebar-widget -->
-						<div class="sidebar-widget">
-							<h3 class="sidebar-title">Socials</h3>
-							<div class="widget-container">
-								<div class="widget-socials">
-									<a href="#"><i class="fa fa-facebook"></i></a>
-									<a href="#"><i class="fa fa-twitter"></i></a>
-									<a href="#"><i class="fa fa-instagram"></i></a>
-									<a href="#"><i class="fa fa-google-plus"></i></a>
-									<a href="#"><i class="fa fa-dribbble"></i></a>
-									<a href="#"><i class="fa fa-reddit"></i></a>
-								</div>
-							</div>
-						</div>
+						@await Component.InvokeAsync("SocialMediaComponentOfBlog")
 						<!-- sidebar-widget -->
-						<div class="sidebar-widget">
-							<h3 class="sidebar-title">Categories</h3>
-							<div class="widget-container">
-								<ul>
-									<li><a href="#">Fashion</a></li>
-									<li><a href="#">Art</a></li>
-									<li><a href="#">Design</a></li>
-									<li><a href="#">Featured</a></li>
-									<li><a href="#">Graphics</a></li>
-									<li><a href="#">Peoples</a></li>
-									<li><a href="#">Uncategorized</a></li>
-								</ul>
-							</div>
-						</div>
+						@await Component.InvokeAsync("CategoryComponent")
 				</div>
 				@* @await Component.InvokeAsync("CommentListByBlog",new {id=(int)blogId}) *@
 				</aside>
