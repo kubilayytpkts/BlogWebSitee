@@ -83,7 +83,7 @@
 						<!-- sidebar-widget -->
 						@await Component.InvokeAsync("CategoryComponent")
 				</div>
-				@* @await Component.InvokeAsync("CommentListByBlog",new {id=(int)blogId}) *@
+				 @await Component.InvokeAsync("CommentListByBlog",new {id=(int)blogId})
 				</aside>
 			</div>
 			@await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
