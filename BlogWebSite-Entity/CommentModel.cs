@@ -14,6 +14,7 @@ namespace BlogWebSite_Entity
         public string NameSurname { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }
+        public DateTime DateTime { get; set; }
         public bool Status { get; set; } = false;
         public int BlogID { get; set; }
         public BlogModel Blog { get; set; }

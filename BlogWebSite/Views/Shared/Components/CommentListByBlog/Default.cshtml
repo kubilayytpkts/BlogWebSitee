@@ -23,26 +23,32 @@
 
 <div class="blog-comment">
     <h3>Yorumlar</h3>
-    @* @if(Model.Comment.Count==0)
+     @if(Model.Comment.Count==0)
     {
         <div class="media-body">
             <p>“İlk yorumu atan sen olabilirsin.”</p>
         </div>
 
-    } *@
-    @* else
-    { *@
-        <div class="media">
-            <div class="media-object pull-left">
-                <img src="/author/comment/images/comment.png" class="img-responsive img-circle" >
-            </div>
-            <div class="media-body">
-                <h3 class="media-heading">Kubilay Topaktaş</h3>
-                <span>3 days ago</span>
-                <p>Merhabalar çok güzel bir blog olmuş.</p>
-            </div>
-        </div>
-    @* } *@
+    } 
+     else
+     {
+         @foreach (var item in Model.Comment)
+        {
+            @if(item.Status==true)
+            {
+                <div class="media">
+                    <div class="media-object pull-left">
+                        <img src="/author/comment/images/comment.png" class="img-responsive img-circle">
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading">@item.NameSurname</h3>
+                        <span>@item.DateTime.ToString("dd.MM.yyyy")</span>
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+            }
+        }
+    } 
  
 </div>
 

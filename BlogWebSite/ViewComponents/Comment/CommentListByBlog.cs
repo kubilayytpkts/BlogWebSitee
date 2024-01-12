@@ -11,7 +11,7 @@ namespace BlogWebSite.ViewComponents.Comment
 		Context dbContext = new Context();
 		public IViewComponentResult Invoke(int id)
 		{
-			var result = dbContext.Blogs.Include(b => b.Comment).FirstOrDefault(c => c.BlogID == id);
+			var result = dbContext.Blogs.Include(a => a.Comment).FirstOrDefault(c => c.BlogID == id);
 			return View(result);
 		}
 	}
