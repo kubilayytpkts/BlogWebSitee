@@ -1,0 +1,59 @@
+﻿@using BlogWebSite_Entity
+@model BlogModel
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="/author/comment/css/bootstrap.min.css">
+<link rel="stylesheet" href="/author/comment/css/font-awesome.min.css">
+
+<!-- Main css -->
+<link rel="stylesheet" href="/author/comment/css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Lora|Merriweather:300,400" rel="stylesheet">
+
+<div class="preloader">
+    <div class="sk-spinner sk-spinner-wordpress">
+        <span class="sk-inner-circle"></span>
+    </div>
+</div>
+
+<div class="blog-comment">
+    <h3>Yorumlar</h3>
+    @if (Model.Comment.Count == 0)
+    {
+        <div class="media-body">
+            <p>“İlk yorumu atan sen olabilirsin.”</p>
+        </div>
+
+    }
+    else
+    {
+        @foreach (var item in Model.Comment)
+        {
+            @if (item.Status == true)
+            {
+                <div class="media">
+                    <div class="media-object pull-left">
+                        <img src="/author/comment/images/comment.png" class="img-responsive img-circle">
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading">@item.NameSurname</h3>
+                        <span>@item.DateTime.ToString("dd.MM.yyyy")</span>
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+            }
+        }
+    }
+
+</div>
+
+<script src="/author/comment/js/jquery.js"></script>
+<script src="/author/comment/js/bootstrap.min.js"></script>
+<script src="/author/comment/js/jquery.parallax.js"></script>
+<script src="/author/comment/js/custom.js"></script>
+

@@ -1,0 +1,14 @@
+﻿@using BlogWebSite_Entity
+@model List<CategoryModel>
+
+<div class="sidebar-widget">
+	<h3 class="sidebar-title">Kategoriler</h3>
+	<div class="widget-container">
+		<ul>
+			@foreach (var item in Model)
+			{
+				<li><a href="#">@item.CategoryName</a></li>
+			}
+		</ul>
+	</div>
+</div>

@@ -1,9 +1,9 @@
-﻿@using BlogWebSite_Entity
+﻿﻿@using BlogWebSite_Entity
 @model BlogWebSite_Entity.BlogModel
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/Home_Layout.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/Home_Layout.cshtml";
 }
 
 <style>
@@ -19,18 +19,18 @@
 		<div class="blog-slider blog-inner">
 			@foreach (var item in ViewBag.blogValue)
 			{
-			<div class="single-blog">
-				<div class="single-blog__img">
-					<img src="@item.BlogImage" alt="blog image" style="max-width: 100%; height: auto;">
-				</div>
-				<div class="single-blog__text">
+				<div class="single-blog">
+					<div class="single-blog__img">
+						<img src="@item.BlogImage" alt="blog image" style="max-width: 100%; height: auto;">
+					</div>
+					<div class="single-blog__text">
 						<a href="/Blog/GetByBlogId/@item.BlogID">
 							<h4>@item.BlogTitle</h4>
 						</a>
-					<span>@item.BlogDateTime.ToString("dd.MM.yyyy")</span>
-					<p>@item.BlogDescription</p>
+						<span>@item.BlogDateTime.ToString("dd.MM.yyyy")</span>
+						<p>@item.BlogDescription</p>
+					</div>
 				</div>
-			</div>
 			}
 		</div>
 	</div>

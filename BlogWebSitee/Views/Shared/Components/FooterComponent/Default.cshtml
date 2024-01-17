@@ -1,0 +1,34 @@
+﻿@using BlogWebSite_Entity
+@model BlogWebSite_Entity.CommunicationModel
+
+<footer class="site-footer">
+	<div class="site-container">
+		<div class="footer-inner">
+			<div class="footer-info">
+				<div class="footer-info__left">
+					<img src="~/author/images/Atatürküm.png" alt="about me image">
+				</div>
+				<div class="footer-info__right">
+					<h5>~İletişim~</h5>
+					<p style="color:white;">@ViewBag.userValue</p>
+					<div class="social-icons">
+						@foreach (var item in ViewBag.socialMediaValue)
+						{
+							<a href="@item.TwitterLink" target="_blank"><img src="~/author/images/social-twitter.png" alt="social icon"></a>
+							<a href="@item.InstagramLink" target="_blank"><img src="~/author/images/instagram.jpg" alt="social icon"></a>
+							<a href="@item.LinkedinLink" target="_blank"><img src="~/author/images/Linkedin.png" alt="social icon"></a>
+						}
+					</div>
+				</div>
+			</div>
+			<div class="footer-contact-form">
+				@await Html.PartialAsync("~/Views/EmailService/SendMail.cshtml")
+			</div>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<div class="site-container footer-bottom-inner">
+			<p>© @DateTime.Now.Year Author | Design by Kubilay T. <a href="" target="_blank"></a> | All rights Reserved.</p>
+		</div>
+	</div>
+</footer>

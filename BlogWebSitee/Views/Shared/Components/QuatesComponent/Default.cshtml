@@ -1,0 +1,19 @@
+﻿@using BlogWebSite_Entity
+
+<section class="fh5co-quotes">
+	<div class="site-container">
+		<div class="about-me-slider">
+			@foreach (var item in ViewBag.quotesValue)
+			{
+				<div>
+					<h2 class="universal-h2 universal-h2-bckg">@item.QuotesTitle</h2>
+					<p>“@item.QuotesDescription”</p>
+					<img src="~/author/images/quotes.svg" alt="quotes svg">
+					<h4>@item.QuotesWriterName</h4>
+					<p></p>
+					<br />
+				</div>
+			}
+		</div>
+	</div>
+</section>

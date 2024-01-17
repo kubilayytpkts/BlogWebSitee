@@ -1,0 +1,66 @@
+﻿@using BlogWebSite_Entity
+@model BlogWebSite_Entity.CommunicationModel
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<h5>~İletişim Formu~</h5>
+@using (Html.BeginForm("SendMail", "EmailService", FormMethod.Post, new { id = "mailForm" }))
+{
+    <div class="contact-form__input">
+        @Html.TextBoxFor(x => x.ComName, new { @class = "form-control", @required = "", @placeholder = "İsim Soyisim" })
+        @Html.TextBoxFor(x => x.ComEmail, new { @class = "form-control", @required = "", @placeholder = "E-mail Adresi" })
+    </div>
+    <div>
+        @Html.TextAreaFor(x => x.ComDescription, new { @class = "form-control", @required = "", @placeholder = "Mesajınız..." })
+        <input type="button" name="submit" value="Gönder" placeholder="İçerik" class="submit-button" onclick="sendMail()">
+    </div>
+}
+<!-- JavaScript dosyanızın içinde -->
+<script>
+    function sendMail() {
+        var form = document.getElementById("mailForm");
+        var formData = new FormData(form);
+
+        $.ajax({
+            url: form.action,
+            type: form.method,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                handleMailResponse(result);
+            },
+            error: function () {
+                alert("İşlem Sırasında bir hata oluştu !");
+            }
+        });
+
+        return false; // Formun default submit işlemi engellenir.
+    }
+
+    function handleMailResponse(success) {
+        if (success) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Mesajınız başarıyla gönderildi.",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            resetForm();
+        } else {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Oops...",
+                text: "İşlem başarısız oldu. Lütfen tekrar deneyin.",
+            });
+            resetForm();
+        }
+    }
+    function resetForm() 
+    {
+        var form = document.getElementById("mailForm");
+        form.reset();
+    }
+</script>

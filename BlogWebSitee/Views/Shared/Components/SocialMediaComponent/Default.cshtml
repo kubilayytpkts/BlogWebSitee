@@ -1,0 +1,16 @@
+﻿<section class="fh5co-social">
+	<div class="site-container">
+		<div class="social">
+			<h5>Follow me!!</h5>
+			<div class="social-icons">
+				@foreach (var item in ViewBag.socialMediaValue)
+				{
+					<a href="@item.TwitterLink" target="_blank"><img src="~/author/images/social-twitter.png" alt="social icon"></a>
+					<a href="@item.InstagramLink" target="_blank"><img src="~/author/images/instagram.jpg" alt="social icon"></a>
+					<a href="@item.LinkedinLink" target="_blank"><img src="~/author/images/Linkedin.png" alt="social icon"></a>
+				}
+			</div>
+			<h5>Takip et!!</h5>
+		</div>
+	</div>
+</section>
