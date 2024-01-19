@@ -14,12 +14,12 @@ namespace BlogWebSite_BussinessLayer.Manager
 		ICommentDal commentDal;
         public CommentManager(ICommentDal _commentDal)
         {
-		 commentDal= _commentDal;
+		 commentDal = _commentDal;
         }
 
 		public void Add(CommentModel value)
 		{
-			throw new NotImplementedException();
+			commentDal.Insert(value);
 		}
 
 		public void Delete(CommentModel value)

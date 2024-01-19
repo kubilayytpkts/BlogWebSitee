@@ -59,13 +59,12 @@
 					{
 						<article class="blog-post">
 							<div class="blog-post-image">
-								<a href="post.html"><img src="@item.BlogImage" alt=""></a>
+								<a href=""><img src="@item.BlogImage" alt=""></a>
 							</div>
 							<div class="blog-post-body">
 								<h2><a href="post.html"></a>@item.BlogTitle</h2>
 								<div class="post-meta"><span><a>Şeyma Ercan</a></span>/<span><i class="fa fa-clock-o"></i>@item.BlogDateTime.Value.ToString("dd.MM.yyyy")</span>/<span><a>@item.Category.CategoryName</a></span></div>
 								<div class="blog-post-text">
-
 									<p>@item.BlogDescription</p>
 								</div>
 							</div>
@@ -86,7 +85,8 @@
 				@await Component.InvokeAsync("CommentListByBlog",new {id=(int)blogId})
 				</aside>
 			</div>
-			@await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
+			
+			@await Html.PartialAsync("~/Views/Comment/AddComment.cshtml", new BlogWebSite_Entity.CommentModel{BlogID = blogId})
 	</div>
 	</section>
 

@@ -32,7 +32,7 @@ namespace BlogWebSitee.Controllers
             }
             catch (Exception ex)
             {
-                // Hata yönetimi gerekiyorsa burada işlem yapabilirsiniz.
+                // Hata yönetimi 
             }
             return Json(success);
         }

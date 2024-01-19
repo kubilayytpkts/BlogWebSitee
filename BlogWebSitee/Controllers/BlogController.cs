@@ -26,6 +26,7 @@ namespace BlogWebSitee.Controllers
 
             return View();
         }
+
         public IActionResult GetByBlogId(int id)
         {
             var dbContext = new Context();
@@ -50,7 +51,7 @@ namespace BlogWebSitee.Controllers
             if (words.Length <= wordCount)
                 return description;
 
-            description = string.Join(" ", words.Take(wordCount)) + "    ...";
+            description = string.Join(" ", words.Take(wordCount)) + "...";
 
             return description;
         }

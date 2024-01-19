@@ -2,35 +2,36 @@
 using BlogWebSite_BussinessLayer.Manager;
 using BlogWebSite_Entity;
 using Microsoft.AspNetCore.Mvc;
+using System.Configuration;
 
 namespace BlogWebSitee.Controllers
 {
     public class CommentController : Controller
     {
         CommentManager commentManager = new CommentManager(new EfCommentRepository());
-        private int blogId;
         public IActionResult Index()
         {
             return View();
         }
-        public PartialViewResult CommentListByBlog(int id)
-        {
-            blogId = id;
-            var resutValue = commentManager.ListAll(id);
-            return PartialView(resutValue);
-        }
 
-        [HttpGet]
-        public IActionResult AddComment()
+        public async Task<ActionResult> AddComment(CommentModel comment)
         {
-            ViewBag.blogId = blogId;
-            return View();
-        }
+            bool success = false;
 
-        [HttpPost]
-        public IActionResult AddComment(CommentModel comment)
-        {
-            return View();
+            try
+            {
+                if (!string.IsNullOrEmpty(comment.NameSurname) && !string.IsNullOrEmpty(comment.Description) && !string.IsNullOrEmpty(comment.Email))
+                {
+                    commentManager.Add(comment);
+                    success = true;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return Json(success);
         }
     }
 }

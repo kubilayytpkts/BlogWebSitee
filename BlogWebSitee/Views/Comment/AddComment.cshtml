@@ -1,5 +1,7 @@
-﻿@{
-    var blogId = ViewBag.blogId;
+﻿@using BlogWebSite_Entity
+@model BlogWebSite_Entity.CommentModel
+@{
+    // var blogId = ViewBag.blogId;
 }
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -7,6 +9,12 @@
 <meta name="keywords" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<script src="/author/comment/js/jquery.js"></script>
+<script src="/author/comment/js/bootstrap.min.js"></script>
+<script src="/author/comment/js/jquery.parallax.js"></script>
+<script src="/author/comment/js/custom.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <link rel="stylesheet" href="/author/comment/css/bootstrap.min.css">
 <link rel="stylesheet" href="/author/comment/css/font-awesome.min.css">
@@ -23,18 +31,72 @@
 
 <div class="blog-comment-form">
     <h3>Yorum At</h3>
-    <form action="#" method="post">
-        <input type="text" class="form-control" placeholder="isim soyisim" name="name" required>
-        <input type="email" class="form-control" placeholder="Email" name="email" required>
-        <h1>@blogId</h1>
-        <textarea name="message" rows="5" class="form-control" id="message" placeholder="Yorum içeriğin" message="message" required="required"></textarea>
+    @using (Html.BeginForm("AddComment", "Comment", FormMethod.Post, new { id = "commentForm" }))
+    {
+        @Html.TextBoxFor(x=>x.NameSurname,new {@class="form-control",@required="",@placeholder="İsim Soyisim"})
+        @Html.TextBoxFor(x=>x.Email,new {@class="form-control",@required="",@placeholder="E-Mail"})
+        @Html.TextAreaFor(x=>x.Description,new {@class="form-control",@required="",@placeholder="Yorum içeriğiniz"})
+        <input type="hidden" name="blogId" value="@Model.BlogID" />
+        <h1></h1>
         <div class="col-md-3 col-sm-4">
-            <input name="submit" type="submit" class="form-control" id="submit" value="Yorum gönder">
+            <input name="button" type="submit" class="form-control" id="submit-button" value="Yorum gönder" onclick="sendComment()">
         </div>
-    </form>
+    }
 </div>
+<script>
+    document.getElementById("submit-button").addEventListener("click", function (event) {
+        event.preventDefault(); // Formun varsayılan gönderme davranışını engelle
 
-<script src="/author/comment/js/jquery.js"></script>
-<script src="/author/comment/js/bootstrap.min.js"></script>
-<script src="/author/comment/js/jquery.parallax.js"></script>
-<script src="/author/comment/js/custom.js"></script>
+        // Burada JavaScript fonksiyonunuzu çağırabilirsiniz
+        sendComment();
+    });
+</script>
+<script>
+    function sendComment() {
+        var form = document.getElementById("commentForm");
+        var formData = new FormData(form);
+
+        $.ajax({
+            url: form.action,
+            type: form.method,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                handleCommentResponse(result);
+            },
+            error: function () {
+                alert("İşlem sırasında bir hata oluştu  !");
+            }
+        });
+        return false;
+    }
+
+    function handleCommentResponse(success) {
+        if (success) {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Mesajınız gönderildi onaylandıktan sonra yayınlanacaktır.",
+                showConfirmButton: false,
+                timer: 3000
+            });
+            resetForm();
+        }
+        else { 
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "İşlem başarısız oldu. Lütfen tekrar deneyin !"
+                timer:3000
+            });
+            resetForm();
+        }
+    }
+
+    function resetForm()
+    {
+      var form = document.getElementById("commentForm");
+      form.reset();
+    }
+</script>
