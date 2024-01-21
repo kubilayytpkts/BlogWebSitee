@@ -22,6 +22,7 @@ namespace BlogWebSitee.Controllers
             {
                 if (!string.IsNullOrEmpty(comment.NameSurname) && !string.IsNullOrEmpty(comment.Description) && !string.IsNullOrEmpty(comment.Email))
                 {
+                    comment.DateTime = DateTime.Now;
                     commentManager.Add(comment);
                     success = true;
                 }
