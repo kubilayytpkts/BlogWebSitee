@@ -20,5 +20,6 @@ namespace BlogWebSite.DataAccess.Concrete
 		public DbSet<UserModel> Users { get; set; }
 		public DbSet<CommunicationModel> Communication { get; set; }
 		public DbSet<CommentModel>Comment { get; set; }
+		public DbSet<MailModel>Mails { get; set; }
     }
 } 

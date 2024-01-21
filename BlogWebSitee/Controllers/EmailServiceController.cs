@@ -1,4 +1,5 @@
-﻿using BlogWebSite_BussinessLayer.Service;
+﻿using BlogWebSite.DataAccess.Concrete;
+using BlogWebSite_BussinessLayer.Service;
 using BlogWebSite_Entity;
 using Microsoft.AspNetCore.Mvc;
 namespace BlogWebSitee.Controllers
@@ -6,6 +7,7 @@ namespace BlogWebSitee.Controllers
     public class EmailServiceController : Controller
     {
         private readonly IEmailService emailService;
+        Context context=new Context();
         public EmailServiceController(IEmailService _emailService)
         {
             this.emailService = _emailService;
@@ -14,10 +16,11 @@ namespace BlogWebSitee.Controllers
         public async Task<ActionResult> SendMail(CommunicationModel com)
         {
             bool success = false;
+           var receiverMail = context.Mails.Where(x => x.MailID == 1).Select(y => y.ReceiverMail).FirstOrDefault();
 
-            var email = "onur35710@hotmail.com";
-            var subject = $"BLOG MESAJI : {com.ComEmail}";
-            var message = $"{com.ComName} mesajı : {com.ComDescription}";
+            var email = receiverMail;
+            var subject = $"{com.ComName}'den Mail var !";
+            var message = $"{com.ComEmail} : {com.ComDescription}";
 
             try
             {

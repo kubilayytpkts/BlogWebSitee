@@ -1,5 +1,9 @@
-﻿using BlogWebSite_BussinessLayer.Service;
+﻿using BlogWebSite.DataAccess.Abstract;
+using BlogWebSite.DataAccess.Concrete;
+using BlogWebSite.DataAccess.EntityFramework;
+using BlogWebSite_BussinessLayer.Service;
 using BlogWebSite_Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +17,21 @@ namespace BlogWebSite_BussinessLayer.Manager
 	public class EmailManager : IEmailService
 	{
 
-		public Task SendEmailAsync(string email, string subject, string message)
+		Context context = new Context();
+
+        public Task SendEmailAsync(string email, string subject, string message)
 		{
-			var client = new SmtpClient("smtp-mail.outlook.com", 587)
+			var resultMail = context.Mails.Where(x=>x.MailID==1).ToList().FirstOrDefault();
+
+			var client = new SmtpClient(resultMail.SMTP,(int)resultMail.Port)
 			{
 				EnableSsl = true,
 				UseDefaultCredentials = false,
-				Credentials = new NetworkCredential("kubilaytopaktas@hotmail.com", "onurefe123")
+				Credentials = new NetworkCredential(resultMail.SenderMail,resultMail.SenderMailPassword)
 			};
 
 			return client.SendMailAsync(
-				new MailMessage(from: "kubilaytopaktas@hotmail.com",
+				new MailMessage(from:resultMail.SenderMail,
 								to: email,
 								subject,
 								message));
