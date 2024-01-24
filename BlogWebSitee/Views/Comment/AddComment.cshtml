@@ -1,4 +1,4 @@
-﻿@using BlogWebSite_Entity
+﻿﻿@using BlogWebSite_Entity
 @model BlogWebSite_Entity.CommentModel
 @{
             // var blogId = ViewBag.blogId;
@@ -39,32 +39,30 @@
         <input type="hidden" name="blogId" value="@Model.BlogID" />
         <h1></h1>
         <div class="col-md-3 col-sm-4">
-            <input name="button" type="submit" class="form-control" id="submit-button" value="Yorum gönder" >
+            <input name="button" type="submit" class="form-control" id="submit-button" value="Yorum gönder">
         </div>
     }
 </div>
 
 <script>
     document.getElementById("submit-button").addEventListener("click", function (event) {
-        if(controlInputs())
-            {
+        if (controlInputs()) {
             event.preventDefault();
             sendComment();
-            }
+        }
         else
             alert("Lütfen eksik alanları doldurunuz !");
-            
+
     });
 
-    function controlInputs() { 
+    function controlInputs() {
         var nameSurname = document.getElementById("NameSurname").value;
         var eMail = document.getElementById("Email").value;
         var description = document.getElementById("Description").value;
 
         if (nameSurname !== "" && eMail !== "" && description !== "")
             return true;
-        else
-        {
+        else {
             return false;
         }
     }

@@ -10,23 +10,28 @@ namespace BlogWebSitee.areas.Admin.Controllers
 	{
 		LoginManager loginManager = new LoginManager(new EfUserModelRepository());
 
-		public IActionResult Giris()
+		[HttpGet]
+		public async Task<IActionResult> Index()
 		{
-			return View("Index");
+			return View();
 		}
 
-		
-		public async Task<IActionResult> Index(UserModel user)
-		{
+		[HttpPost]
+        public async Task<IActionResult> Index(UserModel user)
+        {
 			bool flag = false;
-			var result = loginManager.GetAdminInformation(user.Mail, user.password);
 
-			if(result !=null)
+			if (user.Name != null && user.password != null)
 			{
-				flag = true;
-			}				
-			return Json(flag);
-		}
+				var result = loginManager.GetAdminInformation(user.Mail, user.password);
+				if (result != null)
+					return RedirectToAction("Index", "Blog");
+			}
+			else
+			{
 
-	}
+			}
+			return View();
+        }
+    }
 }
