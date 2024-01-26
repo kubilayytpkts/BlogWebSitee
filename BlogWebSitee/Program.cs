@@ -1,5 +1,6 @@
 using BlogWebSite_BussinessLayer.Manager;
 using BlogWebSite_BussinessLayer.Service;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using NETCore.MailKit.Core;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<BlogWebSite_BussinessLayer.Service.IEmailService, EmailManager>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(Options =>
+{
+    Options.Cookie.Name = "BlogWebSite";
+    Options.LoginPath = "/Admin/Login/Index";
+    Options.AccessDeniedPath = "/Admin/Login/Index";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +31,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
