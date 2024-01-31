@@ -41,7 +41,7 @@ namespace BlogWebSitee.areas.Admin.Controllers
 					var authProperties = new AuthenticationProperties();
 
 					await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
-                    return Redirect("/Admin/Home/Index");
+                    return Redirect("/Admin/Banner/Index");
                 }
 				else
 				{

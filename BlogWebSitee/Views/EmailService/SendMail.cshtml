@@ -39,7 +39,8 @@
     }
 
     function handleMailResponse(success) {
-        if (success) {
+        if (success) 
+        {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -47,15 +48,17 @@
                 showConfirmButton: false,
                 timer: 1500
             });
-            resetForm();
+
+            // Formun gönderilmesini engelle
+            $("#loginForm").off("submit"); // Önceki submit olayını kaldır
         } else {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
                 title: "İşlem başarısız Lütfen tekrar deneyin.",
                 text: "",
+                timer: 1500
             });
-            resetForm();
         }
     }
     function resetForm() 

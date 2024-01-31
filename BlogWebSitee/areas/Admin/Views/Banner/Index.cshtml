@@ -1,0 +1,86 @@
+﻿@using BlogWebSite_Entity
+@model List<BannerModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<form id="updateForm" method="post">
+    @foreach (var item in Model)
+    {
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputIsim">Fotoğraf</label>
+                <input type="file" name="BannerPhoto" id="input" class="form-control" placeholder="Fotograf" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="shortHelloText">Merhaba yazısı</label>
+                <input type="text" name="ShortHelloText" class="form-control" value="@item.ShortHelloText" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">İsim</label>
+                <input type="text" name="Name" class="form-control" value="@item.Name" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="surname">Soyisim</label>
+                <input type="text" name="Surname" class="form-control" value="@item.Surname" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">Alanlar</label>
+                <input type="text" name="BannerShortAbout1" class="form-control" value="@item.BannerShortAbout1" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="surname">Kısa Hakkımda Yazısı</label>
+                <input type="text" name="BannerShortAbout" class="form-control" value="@item.BannerShortAbout" />
+            </div>
+        </div>
+        <br />
+    }
+    <button type="submit" class="btn btn-primary" id="save-button" onclick="updateBanners()">Güncelle</button>
+</form>
+
+<script>
+    function updateBanners() {
+        var formData = new FormData($("#updateForm")[0]); // FormData nesnesi oluşturuluyor
+
+        $.ajax({
+            url: "/Admin/Banner/UpdateBanner",
+            type: "POST",
+            data: formData, // Güncellenen verileri controller'a gönder
+            contentType: false, // Dosya yüklemesi olduğu için false
+            processData: false, // Dosya yüklemesi olduğu için false
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Güncelleme Başarılı ! ",
+                        showConfirmButton: false,
+                        timer:3000
+                    });
+                }
+                else {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "İşlem başarısız Lütfen tekrar deneyin.",
+                        text: "",
+                        timer:5000
+                    });
+                }
+            },
+            error: function () {
+                alert("İşlem sırasında bir hata oluştu.");
+            }
+        });
+    }
+</script>
+
