@@ -1,0 +1,33 @@
+﻿@using BlogWebSite_Entity
+@model List<AboutModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<table  class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <td>Yazı</td>
+        <td>Aktiflik Düzenleme</td>
+    </tr>
+            @foreach (var item in Model)
+        {
+    <tr>
+         <th>item.AboutID</th>
+         <td>item.AboutText</td>
+         <td>
+                @if(item.Status ==true)
+                {
+                    <button type="button" href="" class="btn btn-danger" onclick="confirmAction()" >pasif yap</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-primary" onclick="confirmAction()">Aktif Yap</button>
+                }
+            </td>
+    </tr>
+    }
+</table>
+

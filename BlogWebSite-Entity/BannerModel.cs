@@ -17,5 +17,5 @@ namespace BlogWebSite_Entity
 		public string? Surname { get; set; }
 		public string? BannerShortAbout { get; set; }
 		public string? BannerShortAbout1 { get; set; }
-	}
+    }
 }

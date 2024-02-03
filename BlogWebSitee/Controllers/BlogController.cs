@@ -39,7 +39,7 @@ namespace BlogWebSitee.Controllers
         }
 
         //Blog açıklama yazısının bir kısmını verir 
-        public string GetPreview(string description, int wordCount)
+        private string GetPreview(string description, int wordCount)
         {
             if (string.IsNullOrEmpty(description))
             {
