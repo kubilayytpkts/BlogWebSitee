@@ -11,13 +11,14 @@ namespace BlogWebSitee.ViewComponents.About
 		public IViewComponentResult Invoke()
 		{
 			var mainAboutvalue = aboutManager.GetById(13);
-			ViewBag.aboutValue = new List<AboutModel> { mainAboutvalue };
-			var articleValue = aboutManager.GetById(14);
+
+			if(mainAboutvalue.Status!=false)
+                ViewBag.aboutValue = new List<AboutModel> { mainAboutvalue };
+
+            var articleValue = aboutManager.GetById(14);
 
 			if (articleValue.AboutText != null && articleValue.AboutTitle != null && articleValue.Status != false)
-			{
 				ViewBag.aboutValue1 = new List<AboutModel> { articleValue };
-			}
 
 			return View();
 		}

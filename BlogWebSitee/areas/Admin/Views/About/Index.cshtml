@@ -6,28 +6,54 @@
     Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <table  class="table table-bordered">
-    <tr>
+    <tr style="background-color:dodgerblue">
         <th>ID</th>
-        <td>Yazı</td>
-        <td>Aktiflik Düzenleme</td>
+        <th style="text-align:center;">Yazı</th>
+        <th>Aktiflik Düzenleme</th>
     </tr>
             @foreach (var item in Model)
         {
     <tr>
-         <th>item.AboutID</th>
-         <td>item.AboutText</td>
-         <td>
-                @if(item.Status ==true)
+         <th style="color:dodgerblue;">@item.AboutID</th>
+         <td>@item.AboutText</td>
+         <td style="text-align:center;">
+                @if(item.Status == true)
                 {
-                    <button type="button" href="" class="btn btn-danger" onclick="confirmAction()" >pasif yap</button>
+                    <div style="text-align:end;">
+                        <button type="button" style="margin-top: 2em" href="" class="btn btn-danger" onclick="confirmAction('/Admin/About/PassivatingAbout/@item.AboutID')">pasif yap</button>
+                    </div>
                 }
                 else
                 {
-                    <button type="button" class="btn btn-primary" onclick="confirmAction()">Aktif Yap</button>
+                    <button type="button" class="btn btn-success" onclick="confirmAction('Admin/About/ActivatedAbout/@item.AboutID')">Aktif Yap</button>
                 }
+                <button type="button" class="btn btn-primary"style="margin-top:2em;"action="/Admin/About/GetAboutByID">Düzenle<br /></button>
             </td>
     </tr>
     }
 </table>
+
+<script>
+    function confirmAction(url) {
+        Swal.fire({
+            title: "Emin misiniz?",
+            text: "Yapmış olduğunuz işlem Sistemi etkileyebilir.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Evet, Eminim!",
+            cancelButtonText: "Hayır"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Kullanıcı eveti onayladığında yönlendirme gerçekleşir
+                window.location.href = url;
+            }
+        });
+    }
+</script>
+
 

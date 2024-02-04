@@ -38,7 +38,7 @@ namespace BlogWebSite_BussinessLayer.Manager
 
 		public void Update(AboutModel value)
 		{
-			throw new NotImplementedException();
+			aboutDal.Update(value);
 		}
 	}
 }

@@ -17,12 +17,34 @@ namespace BlogWebSitee.Areas.Admin.Controllers
 
             foreach (var item in resultList)
             {
-                GetPreview(item.AboutText, 30);
+                GetPreview(item.AboutText, 15);
                 aboutList.Add(item);
             }
          
             return View(aboutList);
         }
+
+        public IActionResult GetAboutByID(int id)
+        {
+            return View();
+        }
+
+        public IActionResult PassivatingAbout(int id)
+        {
+            var selectedAbout = aboutManager.GetById(id);
+            selectedAbout.Status = false;
+            aboutManager.Update(selectedAbout);
+           return Redirect("/Admin/About/Index");
+        }
+        public  IActionResult ActivatedAbout(int id)
+        {
+            var selectedAbout = aboutManager.GetById(id);
+            selectedAbout.Status = true;
+            aboutManager.Update(selectedAbout);
+            return Redirect("Admin/About/Index");
+        }
+
+
         private string GetPreview(string description,int wordCount)
         {
             if (string.IsNullOrEmpty(description)) 
