@@ -6,6 +6,13 @@
     Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
+<!-- CSS dosyası -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- JavaScript dosyası -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <table  class="table table-bordered">
@@ -20,21 +27,35 @@
          <th style="color:dodgerblue;">@item.AboutID</th>
          <td>@item.AboutText</td>
          <td style="text-align:center;">
-                @if(item.Status == true)
+                @if(item.Status == true && item.AboutID !=13)
                 {
                     <div style="text-align:end;">
-                        <button type="button" style="margin-top: 2em" href="" class="btn btn-danger" onclick="confirmAction('/Admin/About/PassivatingAbout/@item.AboutID')">pasif yap</button>
+                        <button type="button" style="margin-top: 1em; margin-right:1em; padding:5px 23px;" href="" class="btn btn-danger" onclick="confirmAction('/Admin/About/PassivatingAbout/@item.AboutID')">pasif yap</button>
                     </div>
                 }
                 else
                 {
-                    <button type="button" class="btn btn-success" onclick="confirmAction('Admin/About/ActivatedAbout/@item.AboutID')">Aktif Yap</button>
+                    if(item.AboutID !=13 )
+                    {
+                        <button type="button" class="btn btn-success" style="padding:5px 30px;" onclick="confirmAction('/Admin/About/ActivatedAbout/@item.AboutID')">Aktif Yap</button>
+                    }
+                    
                 }
-                <button type="button" class="btn btn-primary"style="margin-top:2em;"action="/Admin/About/GetAboutByID">Düzenle<br /></button>
+
+                <button type="button" class="btn btn-primary"style="margin-top:1em; padding:5px 30px;"action="/Admin/About/GetAboutByID">Düzenle</button>
+
+                @if(item.AboutID != 13)
+                {
+                    <button type="button" class="btn btn-warning" style="margin-top:1em; padding:5px 54px;">Sil</button>
+                }
+                
             </td>
     </tr>
     }
 </table>
+<button type="button" class="btn btn-secondary" style="margin-top:1em; margin-right:3em;" onclick="window.location.href='/Admin/About/AddAbout'">Hakkımda yazısı ekle</button>
+
+
 
 <script>
     function confirmAction(url) {

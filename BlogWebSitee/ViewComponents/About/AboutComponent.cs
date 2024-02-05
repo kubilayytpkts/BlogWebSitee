@@ -10,17 +10,23 @@ namespace BlogWebSitee.ViewComponents.About
 		AboutManager aboutManager = new AboutManager(new EfAboutRepository());
 		public IViewComponentResult Invoke()
 		{
-			var mainAboutvalue = aboutManager.GetById(13);
+			var mainAbout = aboutManager.ListAll().Where(x => x.AboutID == 13).ToList();
+			ViewBag.mainAboutValue = mainAbout;
 
-			if(mainAboutvalue.Status!=false)
-                ViewBag.aboutValue = new List<AboutModel> { mainAboutvalue };
+			var otherAbouts=aboutManager.ListAll().Where(x=>x.AboutID != 13 & x.Status==true).ToList();
+			ViewBag.otherAboutsValue = otherAbouts;
 
-            var articleValue = aboutManager.GetById(14);
+            //var mainAboutvalue = aboutManager.GetById(13);
 
-			if (articleValue.AboutText != null && articleValue.AboutTitle != null && articleValue.Status != false)
-				ViewBag.aboutValue1 = new List<AboutModel> { articleValue };
+            //if(mainAboutvalue.Status!=false)
+            //             ViewBag.aboutValue = new List<AboutModel> { mainAboutvalue };
 
-			return View();
+            //         var articleValue = aboutManager.GetById(14);
+
+            //if (articleValue.AboutText != null && articleValue.AboutTitle != null && articleValue.Status != false)
+            //	ViewBag.aboutValue1 = new List<AboutModel> { articleValue };
+
+            return View();
 		}
 	}
 	public class AboutComponentBlog :ViewComponent

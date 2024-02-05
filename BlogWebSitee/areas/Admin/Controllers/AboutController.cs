@@ -32,17 +32,36 @@ namespace BlogWebSitee.Areas.Admin.Controllers
         public IActionResult PassivatingAbout(int id)
         {
             var selectedAbout = aboutManager.GetById(id);
+
             selectedAbout.Status = false;
             aboutManager.Update(selectedAbout);
+
            return Redirect("/Admin/About/Index");
         }
-        public  IActionResult ActivatedAbout(int id)
+        public IActionResult ActivatedAbout(int id)
         {
             var selectedAbout = aboutManager.GetById(id);
+
             selectedAbout.Status = true;
             aboutManager.Update(selectedAbout);
-            return Redirect("Admin/About/Index");
+
+            return Redirect("/Admin/About/Index");
         }
+
+        [HttpGet]
+        public IActionResult AddAbout()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddAbout(AboutModel about)
+        {
+            aboutManager.Add(about);
+
+            return Redirect("/Admin/About/Index");
+        }
+
 
 
         private string GetPreview(string description,int wordCount)

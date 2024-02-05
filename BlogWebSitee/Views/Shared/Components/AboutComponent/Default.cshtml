@@ -2,7 +2,7 @@
 
 <section class="fh5co-about-me">
 		<div class="about-me-inner site-container">
-			@foreach (var item in ViewBag.aboutValue)
+			@foreach (var item in ViewBag.mainAboutValue)
 		{
 				<article class="portfolio-wrapper">
 					<div class="portfolio__img">
@@ -24,7 +24,7 @@
 						<h4>@item.UserStatusTitle</h4>
 						<p class="p-white"></p>
 					</div>
-					@foreach (var aboutItem in ViewBag.aboutValue1)
+					@foreach (var aboutItem in ViewBag.otherAboutsValue)
 					{
 					<div class="about-me-single-slide">
 						<h2 class="universal-h2 universal-h2-bckg">@aboutItem.AboutTitle</h2>

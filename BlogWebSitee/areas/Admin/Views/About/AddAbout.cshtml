@@ -1,0 +1,32 @@
+﻿@using BlogWebSite_Entity
+@model AboutModel
+
+@{
+    ViewData["Title"] = "AddAbout";
+    Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+@using(Html.BeginForm("AddAbout","About",FormMethod.Post))
+{
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Hakkımda Başlığı(“örnek:Hakkımda”)</label>
+            @Html.TextBoxFor(x=>x.AboutTitle,new {@class="form-control"})
+        </div>
+        <div class="form-group col-md-6">
+            <label>Hakkımda Kısa Yazısı(“örnek:Siyasal Bilgiler Fakultesi”)</label>
+          @Html.TextBoxFor(x=>x.AboutShortText,new {@class="form-control"})
+      </div>
+    </div>
+  <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Hakkımda Kullanıcı Statüsü(“örnek:Siyaset Bilimci”)</label>
+            @Html.TextBoxFor(x=>x.UserStatusTitle,new {@class="form-control"})
+      </div>
+        <div class="form-group col-md-6">
+          <label>Hakkımda Yazısı</label>
+          @Html.TextAreaFor(x=>x.AboutText,new {@class="form-control"})
+      </div>
+  </div>
+}
+
