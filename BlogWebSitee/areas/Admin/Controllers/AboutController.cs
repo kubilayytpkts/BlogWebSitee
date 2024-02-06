@@ -62,8 +62,6 @@ namespace BlogWebSitee.Areas.Admin.Controllers
             return Redirect("/Admin/About/Index");
         }
 
-
-
         private string GetPreview(string description,int wordCount)
         {
             if (string.IsNullOrEmpty(description)) 

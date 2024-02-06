@@ -6,27 +6,55 @@
     Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
-@using(Html.BeginForm("AddAbout","About",FormMethod.Post))
-{
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<form method="post">
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label>Hakkımda Başlığı(“örnek:Hakkımda”)</label>
-            @Html.TextBoxFor(x=>x.AboutTitle,new {@class="form-control"})
+            <label>Hakkımda Başlığı</label>
+            @Html.TextBoxFor(x=>x.AboutTitle,new {@class="form-control",@required="",@placeholder="“örnek:Hakkımda”"})
         </div>
         <div class="form-group col-md-6">
-            <label>Hakkımda Kısa Yazısı(“örnek:Siyasal Bilgiler Fakultesi”)</label>
-          @Html.TextBoxFor(x=>x.AboutShortText,new {@class="form-control"})
+            <label>Hakkımda Kısa Yazısı</label>
+            @Html.TextBoxFor(x=>x.AboutShortText,new {@class="form-control",@required="",@placeholder="“örnek:Siyasal Bilgiler Fakultesi”"})
       </div>
     </div>
-  <div class="form-row">
-        <div class="form-group col-md-6">
-            <label>Hakkımda Kullanıcı Statüsü(“örnek:Siyaset Bilimci”)</label>
-            @Html.TextBoxFor(x=>x.UserStatusTitle,new {@class="form-control"})
-      </div>
-        <div class="form-group col-md-6">
-          <label>Hakkımda Yazısı</label>
-          @Html.TextAreaFor(x=>x.AboutText,new {@class="form-control"})
+  <div>
+        <div>
+            <label>Hakkımda Kullanıcı Statüsü</label>
+            @Html.TextBoxFor(x=>x.UserStatusTitle,new {@class="form-control",@required="",@placeholder="“örnek:Siyaset Bilimci”"})
       </div>
   </div>
-}
-
+  <div>
+      <div>
+          <label>Hakkımda Yazısı</label>
+          @Html.TextAreaFor(x=>x.AboutText,new {@class="form-control",@rows="10",@required=""})
+      </div>
+  </div>
+    <div>
+        <div>
+            <br/>
+            <input type="submit" value="Gönder" class="btn btn-primary text-center">
+        </div>
+    </div>
+</form>
+<script>
+    function confirmAction(url) {
+        Swal.fire({
+            title: "Emin misiniz?",
+            text: "Yapmış olduğunuz işlem Sistemi etkileyebilir.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Evet, Eminim!",
+            cancelButtonText: "Hayır"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Kullanıcı eveti onayladığında yönlendirme gerçekleşir
+                window.location.href = url;
+            }
+        });
+    }
+</script>
