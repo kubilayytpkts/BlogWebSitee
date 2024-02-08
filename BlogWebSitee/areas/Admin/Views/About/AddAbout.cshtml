@@ -35,26 +35,46 @@
     <div>
         <div>
             <br/>
-            <input type="submit" value="Gönder" class="btn btn-primary text-center">
+            <input type="submit" value="Gönder" class="btn btn-primary text-center" onclick="confirmAction('/Admin/About/AddAbout')">
         </div>
     </div>
 </form>
 <script>
-    function confirmAction(url) {
-        Swal.fire({
-            title: "Emin misiniz?",
-            text: "Yapmış olduğunuz işlem Sistemi etkileyebilir.",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Evet, Eminim!",
-            cancelButtonText: "Hayır"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Kullanıcı eveti onayladığında yönlendirme gerçekleşir
-                window.location.href = url;
-            }
+    $(document).ready(function () {
+        $('form').submit(function (event) {
+            event.preventDefault(); // Formun otomatik gönderilmesini engelle
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            Swal.fire({
+                title: "Emin misiniz?",
+                text: "Yapmış olduğunuz işlem Sistemi etkileyebilir.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Evet, Eminim!",
+                cancelButtonText: "Hayır"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // AJAX çağrısı yaparak işlemi gerçekleştir
+                    $.ajax({
+                        url: url,
+                        type: 'POST', // ya da GET, işleminize göre
+                        data: form.serialize(),
+                        success: function (response) {
+                            // İşlem başarılı olduğunda yapılacaklar
+                            window.location.href = '/Admin/About/Index';
+                        },
+                        error: function (xhr, status, error) {
+                            // Hata durumunda yapılacaklar
+                            console.log(error); // Hata konsola yazdırılabilir
+                        }
+                    });
+                }
+            });
         });
-    }
+    });
 </script>
+

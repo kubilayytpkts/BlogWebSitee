@@ -18,7 +18,7 @@ namespace BlogWebSite_BussinessLayer.Manager
         }
         public void Add(AboutModel value)
 		{
-			throw new NotImplementedException();
+			aboutDal.Insert(value);
 		}
 
 		public void Delete(AboutModel value)
