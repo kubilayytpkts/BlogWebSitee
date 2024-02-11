@@ -1,0 +1,108 @@
+﻿@using BlogWebSite_Entity
+@model List<AboutModel>
+
+@{
+    ViewData["Title"] = "GetAboutByID";
+    Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<form id="updateForm" method="post">
+    @foreach (var item in Model)
+    {
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Hakkımda Başlığı</label>
+                <input type="text" name="AboutTitle" class="form-control" value="@item.AboutTitle" />
+            </div>
+            @if(item.AboutID == 13)
+            {
+            <div class="form-group col-md-6">
+                <label>Hakkımda Kısa Yazısı</label>
+                <input type="text" name="AboutShortText" class="form-control" value="@item.AboutShortText" />
+            </div>
+            }
+        </div>
+        <div>
+            <div>
+                <label>Hakkımda Kullanıcı Statüsü</label>
+                <input type="text" name="UserStatusTitle" class="form-control" value="@item.UserStatusTitle" />
+                <br/>
+            </div>
+            
+        </div>
+        @if(item.AboutID == 13)
+        {
+            <div>
+                <div class="form-group col-md-6">
+                    <label for="inputIsim">Fotoğraf</label>
+                    <input type="file" name="AboutPhoto" id="input" class="form-control" placeholder="Fotograf" />
+                    <br/>
+                </div>
+            </div>
+        }
+        <div>
+            <div>
+                <label>Hakkımda Yazısı</label>
+                <textarea name="AboutText" class="form-control" rows="5">@item.AboutText</textarea>
+            </div>
+        </div>
+        <input type="hidden" name="AboutID" value="@item.AboutID" />
+        <div>
+            <div>
+                <br />
+                <input type="submit" value="Gönder" class="btn btn-primary text-center" onclick="confirmAction('/Admin/About/UpdateAboutById/')">
+            </div>
+        </div>
+    }
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('form').submit(function (event) {
+            event.preventDefault(); // Formun otomatik gönderilmesini engelle
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            Swal.fire({
+                title: "Emin misiniz?",
+                text: "Yapmış olduğunuz işlem Sistemi etkileyebilir.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Evet, Eminim!",
+                cancelButtonText: "Hayır"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // AJAX çağrısı yaparak işlemi gerçekleştir
+                    $.ajax({
+                        url: url,
+                        type: 'POST', // ya da GET, işleminize göre
+                        data: form.serialize(),
+                        success: function (response) {
+                            Swal.fire({
+                                title: "",
+                                text: "işlem başarılı.",
+                                icon: "success",
+                                timer: 8000,
+                            });
+                            // İşlem başarılı olduğunda yapılacaklar
+                            
+                            window.location.href = "/Admin/About/Index";
+                        },
+                        error: function (xhr, status, error) {
+                            // Hata durumunda yapılacaklar
+                            console.log(error); // Hata konsola yazdırılabilir
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+

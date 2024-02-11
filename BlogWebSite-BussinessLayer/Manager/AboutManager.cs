@@ -23,7 +23,7 @@ namespace BlogWebSite_BussinessLayer.Manager
 
 		public void Delete(AboutModel value)
 		{
-			throw new NotImplementedException();
+			aboutDal.Delete(value);
 		}
 
 		public AboutModel GetById(int id)

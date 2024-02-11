@@ -45,11 +45,11 @@
                     }
                 }
 
-                <button type="button" class="btn btn-primary action-button" action="/Admin/About/GetAboutByID">Düzenle</button>
+                <button type="button" class="btn btn-primary action-button" onclick="confirmAction('/Admin/About/GetAboutByID/@item.AboutID')">Düzenle</button>
 
                 @if (item.AboutID != 13)
                 {
-                    <button type="button" class="btn btn-warning action-button">Sil</button>
+                    <button type="button" class="btn btn-warning action-button" onclick="confirmAction('/Admin/About/DeleteAbout/@item.AboutID')">Sil</button>
                 }
 
             </td>

@@ -24,9 +24,51 @@ namespace BlogWebSitee.Areas.Admin.Controllers
             return View(aboutList);
         }
 
+        [HttpGet]
         public IActionResult GetAboutByID(int id)
         {
-            return View();
+           var result = aboutManager.GetById(id);
+           List<AboutModel> resultListAbout = new List<AboutModel>() { result};
+          
+            return View(resultListAbout);
+        }
+        [HttpPost]
+        public IActionResult GetAboutByID(AboutModel aboutModel,IFormFile aboutPhoto)
+        {
+            var result = aboutManager.GetById(aboutModel.AboutID);
+
+            if(result.AboutID==13)
+            {
+                if(aboutPhoto!= null)
+                {
+                    var fileExtension=Path.GetExtension(aboutPhoto.FileName);
+
+                    var fileName = Guid.NewGuid().ToString() + fileExtension;
+                    ;
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/author", "images", fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        aboutPhoto.CopyTo(stream);
+                    }
+
+                    aboutModel.AboutPhoto = "/author/images" + fileName;
+                    result.AboutPhoto = aboutModel.AboutPhoto;
+
+                    result.AboutShortText=aboutModel.AboutShortText;
+                }
+
+            }
+            else
+            {
+                result.AboutText = aboutModel.AboutText;
+                result.AboutTitle = aboutModel.AboutTitle;
+                result.UserStatusTitle = aboutModel.UserStatusTitle;
+            }
+
+            aboutManager.Update(result);
+
+            return Redirect("/Admin/About/Index");
         }
 
         public IActionResult PassivatingAbout(int id)
@@ -38,6 +80,7 @@ namespace BlogWebSitee.Areas.Admin.Controllers
 
            return Redirect("/Admin/About/Index");
         }
+
         public IActionResult ActivatedAbout(int id)
         {
             var selectedAbout = aboutManager.GetById(id);
@@ -58,6 +101,13 @@ namespace BlogWebSitee.Areas.Admin.Controllers
         public IActionResult AddAbout(AboutModel about)
         {
             aboutManager.Add(about);
+
+            return Redirect("/Admin/About/Index");
+        }
+
+        public IActionResult DeleteAbout(int id) 
+        {
+            aboutManager.Delete(aboutManager.GetById(id));
 
             return Redirect("/Admin/About/Index");
         }
