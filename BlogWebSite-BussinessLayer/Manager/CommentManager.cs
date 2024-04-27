@@ -43,9 +43,9 @@ namespace BlogWebSite_BussinessLayer.Manager
 			throw new NotImplementedException();
 		}
 
-		public void Update(CommentModel value)
+		public bool Update(CommentModel value)
 		{
-			throw new NotImplementedException();
+			return true;
 		}
 	}
 }

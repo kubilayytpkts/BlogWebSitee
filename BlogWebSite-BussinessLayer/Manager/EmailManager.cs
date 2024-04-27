@@ -57,9 +57,9 @@ namespace BlogWebSite_BussinessLayer.Manager
 			throw new NotImplementedException();
 		}
 
-		public void Update(CommunicationModel value)
+		public bool Update(CommunicationModel value)
 		{
-			throw new NotImplementedException();
+			return true;
 		}
 	}
 }

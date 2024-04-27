@@ -7,7 +7,7 @@ namespace BlogWebSite.DataAccess.Concrete
 	{
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer("server=DESKTOP-PJ2UI5D;database=CoreBlogDB;integrated security=true");
+			optionsBuilder.UseSqlServer("server=(localdb)\\LocalDB;database=CoreBlogDB;integrated security=true");
 		}
 		public DbSet<AboutModel> Abouts { get; set; }
 		public DbSet<BannerModel> Banners { get; set; }

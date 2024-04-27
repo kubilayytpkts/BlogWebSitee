@@ -1,0 +1,84 @@
+﻿@using BlogWebSite_Entity
+@model List<FeatureCounterModel>
+
+@{
+    Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<form id="updateForm" method="post">
+    @foreach (var item in Model)
+    {
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="FeatureID">ID</label>
+                <input type="text" name="FeatureID" class="form-control" value="@item.FeatureID" readonly />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="FeatureTitle">Bölüm Başlığı</label>
+                <input type="text" name="FeatureTitle" class="form-control" value="@item.FeatureTitle" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="ReadBook">Okunan Kitap</label>
+                <input type="text" name="ReadBook" class="form-control" value="@item.ReadBook" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="AdditionalLanguage">Ek Dil Sayısı</label>
+                <input type="text" name="AdditionalLanguage" class="form-control" value="@item.AdditionalLanguage" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="ReadArticlePage">Okunan Makale Sayfası</label>
+                <input type="text" name="ReadArticlePage" class="form-control" value="@item.ReadArticlePage" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Activity">Aktivite Sayısı</label>
+                <input type="text" name="Activity" class="form-control" value="@item.Activity" />
+            </div>
+        </div>
+        <br />
+    }
+    <button type="submit" class="btn btn-primary" id="save-button" onclick="updateBanners()">Güncelle</button>
+</form>
+
+<script>
+    function updateBanners() {
+        var formData = new FormData($("#updateForm")[0]); // FormData nesnesi oluşturuluyor
+
+        $.ajax({
+            url: "/Admin/FeatureCounter/UpdateFeature",
+            type: "POST",
+            data: formData, // Güncellenen verileri controller'a gönder
+            contentType: false, // Dosya yüklemesi olduğu için false
+            processData: false, // Dosya yüklemesi olduğu için false
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "You clicked the button!",
+                        icon: "success"
+                    });
+                }
+                else {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "İşlem başarısız Lütfen tekrar deneyin.",
+                        text: "",
+                        timer: 5000
+                    });
+                }
+            },
+            error: function () {
+                alert("İşlem sırasında bir hata oluştu.");
+            }
+        });
+    }
+</script>
+

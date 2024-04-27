@@ -12,6 +12,6 @@ namespace BlogWebSite_BussinessLayer.Service
 		void Delete(T value);
 		List<T>ListAll();
 		T GetById(int id);
-		void Update(T value);
+		bool Update(T value);
 	}
 }

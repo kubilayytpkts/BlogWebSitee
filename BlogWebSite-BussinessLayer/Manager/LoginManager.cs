@@ -3,6 +3,7 @@ using BlogWebSite_BussinessLayer.Service;
 using BlogWebSite_Entity;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,9 +45,9 @@ namespace BlogWebSite_BussinessLayer.Manager
 			return result;
 		}
 
-		public void Update(UserModel value)
+		public bool Update(UserModel value)
 		{
-			throw new NotImplementedException();
+			return true;
 		}
 	}
 }

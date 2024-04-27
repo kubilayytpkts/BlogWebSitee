@@ -37,9 +37,9 @@ namespace BlogWebSite_BussinessLayer.Manager
 			return socialMediaDal.GetListAll();
 		}
 
-		public void Update(SocialMediaModel value)
+		public bool Update(SocialMediaModel value)
 		{
-			throw new NotImplementedException();
+			return true;
 		}
 	}
 }

@@ -36,9 +36,9 @@ namespace BlogWebSite_BussinessLayer.Manager
 			return blogDal.GetListAll();
 		}
 
-		public void Update(BlogModel value)
+		public bool Update(BlogModel value)
 		{
-			throw new NotImplementedException();
+			return true;
 		}
 	}
 }

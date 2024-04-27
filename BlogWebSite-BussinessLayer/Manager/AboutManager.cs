@@ -36,9 +36,10 @@ namespace BlogWebSite_BussinessLayer.Manager
 			return aboutDal.GetListAll();
 		}
 
-		public void Update(AboutModel value)
+		public bool Update(AboutModel value)
 		{
 			aboutDal.Update(value);
+			return true;
 		}
 	}
 }

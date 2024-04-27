@@ -37,9 +37,9 @@ namespace BlogWebSite_BussinessLayer.Manager
 			return quotesDal.GetListAll();
 		}
 
-		public void Update(QuotesModel value)
+		public bool Update(QuotesModel value)
 		{
-			throw new NotImplementedException();
+			return true;
 		}
 	}
 }

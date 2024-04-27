@@ -37,9 +37,10 @@ namespace BlogWebSite_BussinessLayer.Manager
 			return bannerDal.GetListAll();
 		}
 
-		public void Update(BannerModel value)
+		public bool Update(BannerModel value)
 		{
 			bannerDal.Update(value);
+			return true;
 		}
 	}
 }

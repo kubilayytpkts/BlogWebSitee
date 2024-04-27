@@ -37,9 +37,9 @@ namespace BlogWebSite_BussinessLayer.Manager
             return categoryDal.GetListAll();
         }
 
-        public void Update(CategoryModel value)
+        public bool Update(CategoryModel value)
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

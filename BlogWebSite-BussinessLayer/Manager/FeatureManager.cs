@@ -36,9 +36,15 @@ namespace BlogWebSite_BussinessLayer.Manager
 			return featureCounterDal.GetListAll();
 		}
 
-		public void Update(FeatureCounterModel value)
+		public bool Update(FeatureCounterModel value)
 		{
-			throw new NotImplementedException();
+			if(value != null)
+			{
+                featureCounterDal.Update(value);
+				return true;
+			}
+			else
+				return false;
 		}
 	}
 }

@@ -36,9 +36,9 @@ namespace BlogWebSite_BussinessLayer.Manager
 			return userDal.GetListAll();
 		}
 
-		public void Update(UserModel value)
+		public bool Update(UserModel value)
 		{
-			throw new NotImplementedException();
+			return true;
 		}
 	}
 }
