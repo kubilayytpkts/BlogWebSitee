@@ -11,76 +11,97 @@ namespace BlogWebSitee.Areas.Admin.Controllers
     public class BannerController : Controller
     {
         BannerManager bannerManager = new BannerManager(new EfBannerRepository());
+
+        //============================================================================
+        //Banner verilerini getirme
+        [HttpGet]
         public IActionResult Index()
         {
-            var result = new List<BannerModel>();
-            result = bannerManager.ListAll();
+            var result = bannerManager.GetById(1);
 
             return View(result);
         }
-        public IActionResult UpdateBanner(BannerModel banner,IFormFile bannerPhoto) 
+        //Banner verilerini güncelleme
+        [HttpPost]
+        public async Task<IActionResult> UpdateBanner(BannerModel banner,IFormFile bannerPhoto) 
         {
-            bool success = false;
-
-            if(Validation(banner,bannerPhoto))
+            bool success;
+            try
             {
-                var fileExtension = Path.GetExtension(bannerPhoto.FileName);
-
-                var fileName = Guid.NewGuid().ToString() + fileExtension;
-
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/author", "images", fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                if (Validation(banner, bannerPhoto))
                 {
-                    bannerPhoto.CopyTo(stream);
+                   bannerManager.Change_Product_WithImage(banner, bannerPhoto);
                 }
-                banner.BannerPhoto = "/author/images/" + fileName;
 
-                var result = bannerManager.GetById(1);
-
-                result.Name = banner.Name;
-                result.Surname = banner.Surname;
-                result.BannerPhoto = banner.BannerPhoto;
-                result.BannerShortAbout= banner.BannerShortAbout;
-                result.BannerShortAbout1= banner.BannerShortAbout1;
-
-                bannerManager.Update(result);
-
-                success = true;
-                return Json(new { success = success });
-            }
-            else
-            {
-                if(!string.IsNullOrEmpty(banner.Name) && !string.IsNullOrEmpty(banner.Surname) &&
-              !string.IsNullOrEmpty(banner.BannerShortAbout1) && !string.IsNullOrEmpty(banner.BannerShortAbout) && !string.IsNullOrEmpty(banner.ShortHelloText))
+                else
                 {
+                    if (!IsValid(banner))
+                        return Json(new { success = false });
 
                     var result = bannerManager.GetById(1);
-
                     result.Name = banner.Name;
                     result.Surname = banner.Surname;
                     result.BannerShortAbout = banner.BannerShortAbout;
                     result.BannerShortAbout1 = banner.BannerShortAbout1;
-
                     bannerManager.Update(result);
 
-                    success = true;
-                    return Json(new { success = success });
-
+                    return Json(new { success = true });
                 }
-
             }
+            catch (Exception )
+            {
+                throw;
+            }
+            success = true;
 
             return Json(new { success = success });
         }
-        private bool Validation(BannerModel banner,IFormFile bannerPhoto)
+
+        //================================YARDIMCIMCI METHODLAR============================================
+        //banner modeli ve resim olup olmadıgını kontrol eder
+        private bool Validation(BannerModel banner, IFormFile bannerPhoto)
         {
-            if(bannerPhoto !=null && !string.IsNullOrEmpty(banner.Name) && !string.IsNullOrEmpty(banner.Surname) &&
-              !string.IsNullOrEmpty(banner.BannerShortAbout1) && !string.IsNullOrEmpty(banner.BannerShortAbout) && !string.IsNullOrEmpty(banner.ShortHelloText))
-            {
-                return true;
-            }
-            return false;
+            if (bannerPhoto == null || bannerPhoto.Length <= 0)
+                return false;
+
+            if (string.IsNullOrEmpty(banner.Name))
+                return false;
+
+            if (string.IsNullOrEmpty(banner.Surname))
+                return false;
+
+            if (string.IsNullOrEmpty(banner.BannerShortAbout1))
+                return false;
+
+            if (string.IsNullOrEmpty(banner.BannerShortAbout))
+                return false;
+
+            if (string.IsNullOrEmpty(banner.ShortHelloText))
+                return false;
+
+            return true;
+        }
+
+        //============================================================================
+        //banner modeli kontrol eder
+        private bool IsValid(BannerModel banner)
+        {
+            if (string.IsNullOrEmpty(banner.Name))
+                return false;
+
+            if (string.IsNullOrEmpty(banner.Surname))
+                return false;
+
+            if (string.IsNullOrEmpty(banner.BannerShortAbout1))
+                return false;
+
+            if (string.IsNullOrEmpty(banner.BannerShortAbout))
+                return false;
+
+            if (string.IsNullOrEmpty(banner.ShortHelloText))
+                return false;
+
+            return true;
         }
     }
 }

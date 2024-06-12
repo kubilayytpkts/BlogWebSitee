@@ -9,13 +9,22 @@ namespace BlogWebSitee.Areas.Admin.Controllers
     public class FeatureCounterController : Controller
     {
         FeatureManager featureManager = new FeatureManager(new EfFeatureRepository());
+
+        //============================================================================
+        /// <summary>
+        ///  Kullanıcı yeteneklerini getirir      
+        /// </summary>
         public IActionResult Index()
         {
-           var resultFeature = featureManager.ListAll();
+           var resultFeature = featureManager.GetById(1);
 
             return View(resultFeature);
         }
 
+        /// <summary>
+        ///  Kullanıcı yeteneklerini günceller      
+        /// </summary>
+        [HttpPost]
         public async Task <IActionResult> UpdateFeature(FeatureCounterModel model)
             {
             bool success = false;

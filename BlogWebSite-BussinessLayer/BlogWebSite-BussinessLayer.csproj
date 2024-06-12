@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BlogWebSite-Entity\BlogWebSite-Entity.csproj" />
     <ProjectReference Include="..\DataAccess\BlogWebSite.DataAccess.csproj" />
   </ItemGroup>

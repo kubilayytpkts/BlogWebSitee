@@ -28,7 +28,7 @@ namespace BlogWebSite_BussinessLayer.Manager
 
 		public FeatureCounterModel GetById(int id)
 		{
-			throw new NotImplementedException();
+			 return featureCounterDal.GetById(id);
 		}
 
 		public List<FeatureCounterModel> ListAll()

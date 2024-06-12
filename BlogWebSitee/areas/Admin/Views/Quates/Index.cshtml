@@ -1,0 +1,82 @@
+﻿@using BlogWebSite_Entity
+@model List<QuotesModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="~/css/Table.css" asp-append-version="true" />
+<div class="container">
+    <div class="container">
+        <h2>Alıntılar</h2>
+        <ul class="responsive-table">
+            <li class="table-header" style="background-color:blue;color:white">
+                <div class="col col-1">Id</div>
+                <div class="col col-2" style="margin-left:140px;">Alıntı</div>
+                <div class="col col-3" style="margin-left:130px;">Sil</div>
+                <div class="col col-4">Düzenle</div>
+            </li>
+            @foreach (var item in Model)
+            {
+                <li class="table-row">
+                    <div class="col col-1" data-label="Job Id">@item.QuotesID</div>
+                    <div class="col col-2" data-label="Customer Name">@item.QuotesWriterName</div>
+                    <button type="button" class="btn btn-warning action-button" onclick="confirmAction(@item.QuotesID)">Alıntı Sil</button>
+                    <form method="post" action="@Url.Action("EditQuates","Quates",new {area = "Admin",id=item.QuotesID})">
+                        <button type="submit" class="btn btn-success">Alıntı Düzenle</button>
+                    </form>
+                </li>
+            }
+        </ul>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="addQuates()">Soru ekle</button>
+</div>
+<script>
+    function addQuates() {
+        window.location.href = "@Url.Action("AddQuates", "Quates", new { area = "Admin" })";
+    }
+    function confirmAction(id) {
+        Swal.fire({
+            title: "Emin misiniz?",
+            text: "Yapmış olduğunuz işlem Sistemi etkileyebilir.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Evet, sil!",
+            cancelButtonText: "Hayır"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "@Url.Action("DeleteQuates", "Quates", new { area = "Admin" })?id=" + id,
+                    type: "POST",
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "İşlem başarılı",
+                                text: "Değişiklikler için sayfayı yenileyiniz!"
+                            }).then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "İşlem başarısız!",
+                                text: "Lütfen tekrar deneyiniz..."
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: "error",
+                            title: "İşlem başarısız!",
+                            text: "Bir hata oluştu, lütfen tekrar deneyin."
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>

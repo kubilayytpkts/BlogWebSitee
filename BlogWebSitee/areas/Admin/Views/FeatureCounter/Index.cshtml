@@ -1,82 +1,79 @@
 ﻿@using BlogWebSite_Entity
-@model List<FeatureCounterModel>
+@model FeatureCounterModel
 
 @{
     Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<form id="updateForm" method="post">
-    @foreach (var item in Model)
-    {
+<form id="updateForm" method="post" onsubmit="updateFeatures(event)">
+
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="FeatureID">ID</label>
-                <input type="text" name="FeatureID" class="form-control" value="@item.FeatureID" readonly />
+                <input type="text" name="FeatureID" class="form-control" value="@Model.FeatureID" readonly />
             </div>
             <div class="form-group col-md-6">
                 <label for="FeatureTitle">Bölüm Başlığı</label>
-                <input type="text" name="FeatureTitle" class="form-control" value="@item.FeatureTitle" />
+            <input type="text" name="FeatureTitle" class="form-control" value="@Model.FeatureTitle" />
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="ReadBook">Okunan Kitap</label>
-                <input type="text" name="ReadBook" class="form-control" value="@item.ReadBook" />
+            <input type="text" name="ReadBook" class="form-control" value="@Model.ReadBook" />
             </div>
             <div class="form-group col-md-6">
                 <label for="AdditionalLanguage">Ek Dil Sayısı</label>
-                <input type="text" name="AdditionalLanguage" class="form-control" value="@item.AdditionalLanguage" />
+            <input type="text" name="AdditionalLanguage" class="form-control" value="@Model.AdditionalLanguage" />
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="ReadArticlePage">Okunan Makale Sayfası</label>
-                <input type="text" name="ReadArticlePage" class="form-control" value="@item.ReadArticlePage" />
+            <input type="text" name="ReadArticlePage" class="form-control" value="@Model.ReadArticlePage" />
             </div>
             <div class="form-group col-md-6">
                 <label for="Activity">Aktivite Sayısı</label>
-                <input type="text" name="Activity" class="form-control" value="@item.Activity" />
+            <input type="text" name="Activity" class="form-control" value="@Model.Activity" />
             </div>
         </div>
         <br />
-    }
-    <button type="submit" class="btn btn-primary" id="save-button" onclick="updateBanners()">Güncelle</button>
+    <button type="submit" class="btn btn-primary" id="save-button">Güncelle</button>
 </form>
 
 <script>
-    function updateBanners() {
-        var formData = new FormData($("#updateForm")[0]); // FormData nesnesi oluşturuluyor
+    function updateFeatures(event) {
+
+        event.preventDefault();
+        var formData = new FormData($("#updateForm")[0]);
 
         $.ajax({
             url: "/Admin/FeatureCounter/UpdateFeature",
             type: "POST",
-            data: formData, // Güncellenen verileri controller'a gönder
-            contentType: false, // Dosya yüklemesi olduğu için false
-            processData: false, // Dosya yüklemesi olduğu için false
+            data: formData,
+            contentType: false,
+            processData: false,
             success: function (response) {
                 if (response.success) {
-                    Swal.fire({
-                        title: "Good job!",
-                        text: "You clicked the button!",
-                        icon: "success"
+                    swal.fire({
+                        title: "İşlem başarılı",
+                        icon: "success",
+                        button: "Tamam",
                     });
-                }
-                else {
-                    Swal.fire({
-                        position: "center",
+                } else {
+                    swal.fire({
+                        title: "İşlem başarısız",
                         icon: "error",
-                        title: "İşlem başarısız Lütfen tekrar deneyin.",
-                        text: "",
-                        timer: 5000
+                        button: "Tamam",
                     });
                 }
             },
             error: function () {
-                alert("İşlem sırasında bir hata oluştu.");
+                alert("İşlem başarısız oldu");
             }
         });
     }

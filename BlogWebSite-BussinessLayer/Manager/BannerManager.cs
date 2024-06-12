@@ -1,9 +1,11 @@
 ﻿using BlogWebSite.DataAccess.Abstract;
 using BlogWebSite_BussinessLayer.Service;
 using BlogWebSite_Entity;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,5 +44,31 @@ namespace BlogWebSite_BussinessLayer.Manager
 			bannerDal.Update(value);
 			return true;
 		}
+
+		public bool Change_Product_WithImage(BannerModel banner,IFormFile bannerPhoto)
+		{
+            var fileExtension = Path.GetExtension(bannerPhoto.FileName);
+
+            var fileName = Guid.NewGuid().ToString() + fileExtension;
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/author", "images", fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                bannerPhoto.CopyTo(stream);
+            }
+
+            var result = GetById(1);
+
+            result.Name = banner.Name;
+            result.Surname = banner.Surname;
+            result.BannerPhoto = "/author/images/" + fileName;
+            result.BannerShortAbout = banner.BannerShortAbout;
+            result.BannerShortAbout1 = banner.BannerShortAbout1;
+
+            Update(result);
+
+			return true;
+        }
 	}
 }

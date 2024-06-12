@@ -1,86 +1,87 @@
 ﻿@using BlogWebSite_Entity
-@model List<BannerModel>
+@model BannerModel
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
+<link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<form id="updateForm" method="post">
-    @foreach (var item in Model)
-    {
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputIsim">Fotoğraf</label>
-                <input type="file" name="BannerPhoto" id="input" class="form-control" placeholder="Fotograf" />
-            </div>
-            <div class="form-group col-md-6">
-                <label for="shortHelloText">Merhaba yazısı</label>
-                <input type="text" name="ShortHelloText" class="form-control" value="@item.ShortHelloText" />
-            </div>
+<form id="updateForm" method="post" onsubmit="updateCategory(event)" enctype="multipart/form-data">
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Fotoğraf</label>
+            <input type="file" name="BannerPhoto" id="input" class="form-control" placeholder="Fotograf" />
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="name">İsim</label>
-                <input type="text" name="Name" class="form-control" value="@item.Name" />
-            </div>
-            <div class="form-group col-md-6">
-                <label for="surname">Soyisim</label>
-                <input type="text" name="Surname" class="form-control" value="@item.Surname" />
-            </div>
+
+        <div class="form-group col-md-6">
+            <label>Merhaba Yazısı</label>
+            <input type="text" name="ShortHelloText" id="input" class="form-control" value="@Model.ShortHelloText" />
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="name">Alanlar</label>
-                <input type="text" name="BannerShortAbout1" class="form-control" value="@item.BannerShortAbout1" />
-            </div>
-            <div class="form-group col-md-6">
-                <label for="surname">Kısa Hakkımda Yazısı</label>
-                <input type="text" name="BannerShortAbout" class="form-control" value="@item.BannerShortAbout" />
-            </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>İsim</label>
+            <input type="text" name="Name" id="input" class="form-control" value="@Model.Name" />
         </div>
-        <br />
-    }
-    <button type="submit" class="btn btn-primary" id="save-button" onclick="updateBanners()">Güncelle</button>
+        <div class="form-group col-md-6">
+            <label>Soyisim</label>
+            <input type="text" name="Surname" id="input" class="form-control" value="@Model.Surname" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Alanlar</label>
+            <input type="text" name="BannerShortAbout1" id="input" class="form-control" value="@Model.BannerShortAbout1" />
+        </div>
+        <div class="form-group col-md-6">
+            <label>Kısa Hakkımda Yazısı</label>
+            <input type="text" name="BannerShortAbout" id="input" class="form-control" value="@Model.BannerShortAbout" />
+        </div>
+    </div>
+
+    <button type="submit" class="button is-primary">Güncelle</button>
 </form>
 
 <script>
-    function updateBanners() {
-        var formData = new FormData($("#updateForm")[0]); // FormData nesnesi oluşturuluyor
+    function updateCategory(event) {
+        event.preventDefault(); // Form gönderimini engelle
+
+        var formData = new FormData($("#updateForm")[0]);
 
         $.ajax({
             url: "/Admin/Banner/UpdateBanner",
             type: "POST",
-            data: formData, // Güncellenen verileri controller'a gönder
-            contentType: false, // Dosya yüklemesi olduğu için false
-            processData: false, // Dosya yüklemesi olduğu için false
+            data: formData,
+            contentType: false,
+            processData: false,
+
             success: function (response) {
                 if (response.success) {
-                    Swal.fire({
-                        position: "center",
+                    swal.fire({
+                        title: "İşlem Başarılı !",
                         icon: "success",
-                        title: "Güncelleme Başarılı ! ",
-                        showConfirmButton: false,
-                        timer:3000
+                        button: "Tamam",
                     });
                 }
                 else {
-                    Swal.fire({
-                        position: "center",
+                    swal.fire({
+                        title: "İşlem başarısız !",
                         icon: "error",
-                        title: "İşlem başarısız Lütfen tekrar deneyin.",
-                        text: "",
-                        timer:5000
+                        button: "Tamam",
                     });
                 }
             },
             error: function () {
-                alert("İşlem sırasında bir hata oluştu.");
+                alert("İşlem başarısız oldu");
             }
         });
+
     }
 </script>
+
 
