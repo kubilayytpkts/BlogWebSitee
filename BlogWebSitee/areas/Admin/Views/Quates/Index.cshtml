@@ -4,79 +4,84 @@
     ViewData["Title"] = "Index";
     Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="~/css/Table.css" asp-append-version="true" />
+
+<link rel="stylesheet" href="~/css/demo.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div class="container">
-    <div class="container">
-        <h2>Alıntılar</h2>
-        <ul class="responsive-table">
-            <li class="table-header" style="background-color:blue;color:white">
-                <div class="col col-1">Id</div>
-                <div class="col col-2" style="margin-left:140px;">Alıntı</div>
-                <div class="col col-3" style="margin-left:130px;">Sil</div>
-                <div class="col col-4">Düzenle</div>
+    <h2>Alıntılar </h2>
+    <ul class="responsive-table">
+        <li class="table-header" style="background-color:blue">
+            <div class="col col-1" style="text-align:center; color:white">ID</div>
+            <div class="col col-2" style="text-align:center; color:white; margin-left:130px;">Alıntı</div>
+            <div class="col col-4" style="text-align:center; color:white; margin-left:100px;">Sil</div>
+            <div class="col col-4" style="text-align:center; color:white; margin-left:40px;">Düzenle</div>
+        </li>
+        @foreach (var item in Model)
+        {
+            <li class="table-row">
+                <div class="col col-1" style="text-align:center;" data-label="CategoryID">@item.QuotesID</div>
+                <div class="col col-2" style="text-align:center; margin-left:-4em;" data-label="CategoryName">@item.QuotesWriterName</div>
+                <form method="post" onsubmit="deleteQuateses(@item.QuotesID); return false;">
+                    <button type="submit" class="btn btn-warning">Sil</button>
+                </form>
+                <button type="submit" class="btn btn-primary" id="save-button" action="" onclick="editQuates(@item.QuotesID)">Düzenle</button>
             </li>
-            @foreach (var item in Model)
-            {
-                <li class="table-row">
-                    <div class="col col-1" data-label="Job Id">@item.QuotesID</div>
-                    <div class="col col-2" data-label="Customer Name">@item.QuotesWriterName</div>
-                    <button type="button" class="btn btn-warning action-button" onclick="confirmAction(@item.QuotesID)">Alıntı Sil</button>
-                    <form method="post" action="@Url.Action("EditQuates","Quates",new {area = "Admin",id=item.QuotesID})">
-                        <button type="submit" class="btn btn-success">Alıntı Düzenle</button>
-                    </form>
-                </li>
-            }
-        </ul>
-    </div>
-    <button type="button" class="btn btn-primary" onclick="addQuates()">Soru ekle</button>
+        }
+        <button type="button" class="btn btn-success" onclick="addQuestion()">Soru ekle</button>
+    </ul>
+
 </div>
 <script>
-    function addQuates() {
-        window.location.href = "@Url.Action("AddQuates", "Quates", new { area = "Admin" })";
-    }
-    function confirmAction(id) {
-        Swal.fire({
-            title: "Emin misiniz?",
-            text: "Yapmış olduğunuz işlem Sistemi etkileyebilir.",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Evet, sil!",
-            cancelButtonText: "Hayır"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "@Url.Action("DeleteQuates", "Quates", new { area = "Admin" })?id=" + id,
-                    type: "POST",
-                    success: function (response) {
-                        if (response.success) {
-                            Swal.fire({
-                                icon: "success",
-                                title: "İşlem başarılı",
-                                text: "Değişiklikler için sayfayı yenileyiniz!"
-                            }).then(() => {
-                                location.reload();
-                            });
-                        } else {
+        function deleteQuateses(id) {
+
+            Swal.fire({
+                title: "Emin misiniz ?",
+                icon: "warning",
+                text: "Yapmış olduğunuz işlem Sistemi etkileyebilir.",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Evet, sil!",
+                cancelButtonText: "Hayır"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Quates/DeleteQuates",
+                        method: "POST",
+                       data: { id: id },
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    icon: "success",
+                                    text: "Değişiklikler için sayfayı yenileyiniz!",
+                                    title: "İşlem başarılı",
+
+                                });
+                            }
+                            else {
+                                Swal.fire({
+                                    icon: "error",
+                                    text: "Bir hata oluştu,Lütfen tekrar deneyin.",
+                                    title: "İşlem başarısız",
+                                });
+                            }
+                        },
+                        error: function () {
                             Swal.fire({
                                 icon: "error",
-                                title: "İşlem başarısız!",
-                                text: "Lütfen tekrar deneyiniz..."
+                                title: "İşlem başarısız",
+                                text: "Bir hata oluştu, lütfen tekrar deneyin."
                             });
                         }
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: "error",
-                            title: "İşlem başarısız!",
-                            text: "Bir hata oluştu, lütfen tekrar deneyin."
-                        });
-                    }
-                });
-            }
-        });
-    }
-</script>
+                    });
+                }
+            });
+        }
+
+        function editQuates(id){
+            window.location.href ="/Admin/Quates/EditQuates?id="+ id;
+        }
+    </script>

@@ -24,13 +24,13 @@ namespace BlogWebSite_BussinessLayer.Manager
 
 		public void Delete(QuotesModel value)
 		{
-			throw new NotImplementedException();
-		}
+			quotesDal.Delete(value);
+        }
 
 		public QuotesModel GetById(int id)
 		{
-			throw new NotImplementedException();
-		}
+			return quotesDal.GetById(id);
+        }
 
 		public List<QuotesModel> ListAll()
 		{
@@ -38,6 +38,13 @@ namespace BlogWebSite_BussinessLayer.Manager
 		}
 
 		public bool Update(QuotesModel value)
+		{
+			value.QuotesTitle = "Alıntılar";
+            quotesDal.Update(value);
+			return true;
+        }
+
+		public bool Edit_Quates(QuotesModel value)
 		{
 			return true;
 		}

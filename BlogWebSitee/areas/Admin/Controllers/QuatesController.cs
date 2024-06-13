@@ -1,7 +1,9 @@
 ﻿using BlogWebSite.DataAccess.EntityFramework;
 using BlogWebSite_BussinessLayer.Manager;
+using BlogWebSite_Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace BlogWebSitee.Areas.Admin.Controllers
 {
@@ -16,13 +18,15 @@ namespace BlogWebSitee.Areas.Admin.Controllers
             var result = _quotesManager.ListAll();
             return View(result);
         }
+
         [HttpGet]
         public IActionResult AddQuates()
         {
             return View();
         }
 
-        public  IActionResult DeleteQuates(int id)
+        [HttpPost]
+        public async Task<IActionResult> DeleteQuates(int id)
         {
             bool success = true;
 
@@ -30,6 +34,23 @@ namespace BlogWebSitee.Areas.Admin.Controllers
             _quotesManager.Delete(result);
 
             return Json(new { success = success });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditQuates(int id)
+        {
+            var result = _quotesManager.GetById(id);
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditQuates(QuotesModel model)
+        {
+            bool success; 
+
+           success = _quotesManager.Update(model);
+
+            return Json(new {success=success});
         }
 
     }

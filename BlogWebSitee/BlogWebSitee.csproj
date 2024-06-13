@@ -29,4 +29,12 @@
     <Folder Include="Areas\Admin\Views\Login\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\table\.DS_Store" />
+    <None Include="wwwroot\table\css\.DS_Store" />
+    <None Include="wwwroot\table\fonts\.DS_Store" />
+    <None Include="wwwroot\table\images\.DS_Store" />
+    <None Include="wwwroot\table\scss\.DS_Store" />
+  </ItemGroup>
+
 </Project>
