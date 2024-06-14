@@ -1,0 +1,66 @@
+﻿@using BlogWebSite_Entity
+@model SocialMediaModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+<link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<form id="updateForm" method="post" onsubmit="updateCategory(event)">
+    <div class="form-row">
+        <input type="hidden" name="SocialMediaID" class="form-control" value="@Model.SocialMediaID" />
+        <div class="form-group col-md-6">
+            <label>Linkedin</label>
+            <input type="text" name="LinkedinLink" id="input" class="form-control" value="@Model.LinkedinLink" />
+        </div>
+        <div class="form-group col-md-6">
+            <label>Instagram</label>
+            <input type="text" name="InstagramLink" id="input" class="form-control" value="@Model.InstagramLink" />
+        </div> 
+        <div class="form-group col-md-6">
+            <label>Twitter</label>
+            <input type="text" name="TwitterLink" id="input" class="form-control" value="@Model.TwitterLink" />
+        </div>
+    </div>
+    <button type="submit" class="button is-primary">Güncelle</button>
+</form>
+
+<script>
+    function updateCategory(event) {
+        event.preventDefault(); // Form gönderimini engelle
+
+        var formData = new FormData($("#updateForm")[0]);
+
+        $.ajax({
+            url: "/Admin/SocialMedia/Index",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+
+            success: function (response) {
+                if (response.success) {
+                    swal.fire({
+                        title: "İşlem Başarılı !",
+                        icon: "success",
+                        button: "Tamam",
+                    });
+                }
+                else {
+                    swal.fire({
+                        title: "İşlem başarısız !",
+                        icon: "error",
+                        button: "Tamam",
+                    });
+                }
+            },
+            error: function () {
+                alert("İşlem başarısız oldu");
+            }
+        });
+
+    }
+</script>
+

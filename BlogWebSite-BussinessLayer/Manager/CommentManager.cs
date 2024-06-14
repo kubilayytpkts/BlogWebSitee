@@ -29,8 +29,9 @@ namespace BlogWebSite_BussinessLayer.Manager
 
 		public CommentModel GetById(int id)
 		{
-			throw new NotImplementedException();
-		}
+			return commentDal.GetById(id);
+
+        }
 
 		public List<CommentModel> ListAll(int id)
 		{
@@ -40,12 +41,45 @@ namespace BlogWebSite_BussinessLayer.Manager
 
 		public List<CommentModel> ListAll()
 		{
-			throw new NotImplementedException();
+			return commentDal.GetListAll();
 		}
 
 		public bool Update(CommentModel value)
 		{
-			return true;
+            if(value != null)
+			{
+				commentDal.Update(value);
+				return true;
+			}
+
+            return false;
+        }
+		public bool Validation(int id,string type)
+		{
+			bool flag;
+			if(id!=0)
+			{
+				var result = GetById(id);
+
+                if (type == "deActive")
+                {
+					result.Status = false;
+					Update(result);
+					flag = true;
+                }
+                else
+                {
+                    result.Status = true;
+                    Update(result);
+                    flag = true;
+                }
+            }
+			else
+			{
+                flag = false;
+            }
+
+			return flag;
 		}
 	}
 }

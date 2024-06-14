@@ -29,8 +29,9 @@ namespace BlogWebSite_BussinessLayer.Manager
 
 		public SocialMediaModel GetById(int id)
 		{
-			throw new NotImplementedException();
-		}
+            return socialMediaDal.GetById(id);
+
+        }
 
 		public List<SocialMediaModel> ListAll()
 		{
@@ -39,6 +40,7 @@ namespace BlogWebSite_BussinessLayer.Manager
 
 		public bool Update(SocialMediaModel value)
 		{
+			socialMediaDal.Update(value);
 			return true;
 		}
 	}

@@ -11,20 +11,34 @@ namespace BlogWebSitee.Areas.Admin.Controllers
     public class QuatesController : Controller
     {
         QuotesManager _quotesManager = new QuotesManager(new EfQuotesRepository());
-      
+
+        //============================================================================
+        //Alıntıları getirir
         [HttpGet]
         public IActionResult Index()
         {
             var result = _quotesManager.ListAll();
             return View(result);
         }
-
+        //============================================================================
+        //Alıntı ekler
         [HttpGet]
         public IActionResult AddQuates()
         {
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddQuates(QuotesModel quotes)
+        {
+            bool success = true;
+            _quotesManager.Add(quotes);
+
+            return Json(new { success = success});
+        }
+
+        //============================================================================
+        //Alıntı siler
         [HttpPost]
         public async Task<IActionResult> DeleteQuates(int id)
         {
@@ -36,6 +50,8 @@ namespace BlogWebSitee.Areas.Admin.Controllers
             return Json(new { success = success });
         }
 
+        //============================================================================
+        //Alıntı düzenler
         [HttpGet]
         public async Task<IActionResult> EditQuates(int id)
         {
@@ -52,6 +68,8 @@ namespace BlogWebSitee.Areas.Admin.Controllers
 
             return Json(new {success=success});
         }
+
+        //============================================================================
 
     }
 }

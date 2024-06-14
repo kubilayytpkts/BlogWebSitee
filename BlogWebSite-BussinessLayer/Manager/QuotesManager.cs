@@ -19,7 +19,10 @@ namespace BlogWebSite_BussinessLayer.Manager
 
         public void Add(QuotesModel value)
 		{
-			throw new NotImplementedException();
+			value.Status = true;
+			value.QuotesTitle = "Alıntılar";
+
+			quotesDal.Insert(value);
 		}
 
 		public void Delete(QuotesModel value)
@@ -44,9 +47,5 @@ namespace BlogWebSite_BussinessLayer.Manager
 			return true;
         }
 
-		public bool Edit_Quates(QuotesModel value)
-		{
-			return true;
-		}
 	}
 }

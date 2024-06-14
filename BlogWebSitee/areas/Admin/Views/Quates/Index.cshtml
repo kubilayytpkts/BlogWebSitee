@@ -30,7 +30,7 @@
                 <button type="submit" class="btn btn-primary" id="save-button" action="" onclick="editQuates(@item.QuotesID)">Düzenle</button>
             </li>
         }
-        <button type="button" class="btn btn-success" onclick="addQuestion()">Soru ekle</button>
+        <button type="button" class="btn btn-success" onclick="addQuates()">Alıntı ekle</button>
     </ul>
 
 </div>
@@ -84,4 +84,8 @@
         function editQuates(id){
             window.location.href ="/Admin/Quates/EditQuates?id="+ id;
         }
+
+    function addQuates() { 
+        window.location.href = "/Admin/Quates/AddQuates";
+    }
     </script>
