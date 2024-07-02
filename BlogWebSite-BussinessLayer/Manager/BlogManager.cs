@@ -28,8 +28,9 @@ namespace BlogWebSite_BussinessLayer.Manager
 
 		public BlogModel GetById(int id)
 		{
-			throw new NotImplementedException();
-		}
+            return blogDal.GetById(id);
+
+        }
 
 		public List<BlogModel> ListAll()
 		{

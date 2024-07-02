@@ -1,4 +1,6 @@
 ﻿@using BlogWebSite_Entity
+@using X.PagedList
+@using X.PagedList.Mvc.Core
 @model List<CommentModel>
 
 @{
@@ -39,7 +41,8 @@
                 }
 
                 <button type="submit" class="btn btn-primary" onclick="reviewComment(@item.CommentID)">İncele</button>
-                <form method="post" action="@Url.Action("DeleteComment", "Comment", new { area = "Admin", id = item.CommentID })" onsubmit="return confirmAction(event, this)">
+
+                <form method="post" onsubmit="deleteComment(@item.CommentID); return false;">
                     <button type="submit" class="btn btn-warning">Sil</button>
                 </form>
             </li>
@@ -47,7 +50,7 @@
     </ul>
 </div>
 <script>
-    function deleteQuateses(id) {
+    function deleteComment(id) {
 
         Swal.fire({
             title: "Emin misiniz ?",
@@ -61,17 +64,18 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "/Admin/Quates/DeleteQuates",
-                    method: "POST",
+                    url: "/Admin/Comment/DeleteComment",
+                    method: "DELETE",
                     data: { id: id },
                     success: function (response) {
                         if (response.success) {
                             Swal.fire({
                                 icon: "success",
-                                text: "Değişiklikler için sayfayı yenileyiniz!",
+                                text: "Değişiklikler için sayfayı yenileniyor !",
                                 title: "İşlem başarılı",
-
-                            });
+                            }).then(() => {
+                                window.location.reload();
+                            })
                         }
                         else {
                             Swal.fire({
@@ -143,4 +147,3 @@
     }
 
 </script>
-

@@ -3,6 +3,7 @@ using BlogWebSite_BussinessLayer.Manager;
 using BlogWebSite_Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Text;
 
 namespace BlogWebSitee.Areas.Admin.Controllers
 {
@@ -10,6 +11,9 @@ namespace BlogWebSitee.Areas.Admin.Controllers
     public class CommentController : Controller
     {
         CommentManager commentManager = new CommentManager(new EfCommentRepository());
+
+        //============================================================================
+        //Bütün Yorumları getirme
         public IActionResult Index()
         {
             var result = commentManager.ListAll();
@@ -17,6 +21,8 @@ namespace BlogWebSitee.Areas.Admin.Controllers
             return View(result);
         }
 
+        //============================================================================
+        //Yorum statusu değiştirme
         [HttpPost]
         public async Task<IActionResult> ChangeCommentStatus(int id,string type)
         {
@@ -25,16 +31,36 @@ namespace BlogWebSitee.Areas.Admin.Controllers
             return Json(new {success=success});
         }
 
+        //============================================================================
+        //Yorum İnceleme
         [HttpGet]
         public IActionResult ReviewComment(int id)
-        {//burda kaldım view oluşturulacak 
-            return View();
+        {
+            BlogManager blogManager =new BlogManager(new EfBlogRepository());
+
+            var resultComment = commentManager.GetById(id);
+            var blogName = blogManager.ListAll().Where(x=>x.BlogID == resultComment.BlogID).Select(y=>y.BlogTitle).FirstOrDefault();
+            ViewData["blogName"] = blogName;
+
+            return View(resultComment);
+        }
+
+        //============================================================================
+        //Yorum Silme
+        [HttpDelete]
+        public async Task<IActionResult> DeleteComment(int id)
+        {
+            var success = false ;
+
+            if(id is not 0)
+            {
+                var deleteValue = commentManager.GetById(id);
+                commentManager.Delete(deleteValue);
+                success = true;
+            }
+
+            return Json(new {success=success});
         }
         
-        [HttpPost]
-        public async Task<IActionResult> ReviewComment(CommentModel comment)
-        {
-            return View();
-        }
     }
 }

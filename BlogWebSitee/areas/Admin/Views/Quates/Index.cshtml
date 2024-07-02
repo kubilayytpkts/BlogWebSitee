@@ -32,7 +32,6 @@
         }
         <button type="button" class="btn btn-success" onclick="addQuates()">Alıntı ekle</button>
     </ul>
-
 </div>
 <script>
         function deleteQuateses(id) {
@@ -56,9 +55,10 @@
                             if (response.success) {
                                 Swal.fire({
                                     icon: "success",
-                                    text: "Değişiklikler için sayfayı yenileyiniz!",
+                                    text: "Değişiklikler için sayfa yenileniyor !",
                                     title: "İşlem başarılı",
-
+                                }).then(() => {
+                                    window.location.reload();
                                 });
                             }
                             else {

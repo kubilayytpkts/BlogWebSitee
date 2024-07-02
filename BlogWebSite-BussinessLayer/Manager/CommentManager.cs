@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace BlogWebSite_BussinessLayer.Manager
 {
@@ -24,13 +25,12 @@ namespace BlogWebSite_BussinessLayer.Manager
 
 		public void Delete(CommentModel value)
 		{
-			throw new NotImplementedException();
+			commentDal.Delete(value);
 		}
 
 		public CommentModel GetById(int id)
 		{
 			return commentDal.GetById(id);
-
         }
 
 		public List<CommentModel> ListAll(int id)
@@ -54,6 +54,7 @@ namespace BlogWebSite_BussinessLayer.Manager
 
             return false;
         }
+
 		public bool Validation(int id,string type)
 		{
 			bool flag;
@@ -81,5 +82,6 @@ namespace BlogWebSite_BussinessLayer.Manager
 
 			return flag;
 		}
+
 	}
 }
