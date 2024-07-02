@@ -1,12 +1,11 @@
 ﻿@using BlogWebSite_Entity
-@using X.PagedList
-@using X.PagedList.Mvc.Core
-@model List<CommentModel>
+@model List<CategoryModel>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
+
 <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -14,35 +13,37 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="container">
-    <h2>Yorumlar </h2>
+    <h2>Kategoriler </h2>
     <ul class="responsive-table">
-        <li class="table-header" style="background-color:darkcyan">
+        <li class="table-header" style="background-color:mediumpurple">
             <div class="col col-1" style="text-align:center; color:white; margin-left:;">ID</div>
-            <div class="col col-2" style="text-align:center; color:white; margin-left:;">Yorum</div>
-            <div class="col col-4" style="text-align:center; color:white; margin-left:;">Aktiflik</div>
+            <div class="col col-2" style="text-align:center; color:white; margin-left:;">İsim</div>
+            <div class="col col-4" style="text-align:center; color:white; margin-left:;">Açıklama</div>
+            <div class="col col-4" style="text-align:center; color:white; margin-left:;">Durum</div>
             <div class="col col-4" style="text-align:center; color:white; margin-left:;">İncele / SİL</div>
         </li>
         @foreach (var item in Model)
         {
             <li class="table-row">
-                <div class="col col-1" style="text-align:center;" data-label="CategoryID">@item.CommentID</div>
-                <div class="col col-2" style="text-align:center; margin-left:-4em;" data-label="CategoryName">@item.NameSurname</div>
+                <div class="col col-1" style="text-align:center;" data-label="CategoryID">@item.CategoryID</div>
+                <div class="col col-2" style="text-align:center; margin-left:-4em;" data-label="CategoryName">@item.CategoryName</div>
+                <div class="col col-2" style="text-align:center; margin-left:-4em;" data-label="CategoryName">@item.CategoryDescription</div>
                 @if (item.Status == true)
                 {
-                    <form method="post" onsubmit="return confirmAction(@item.CommentID, 'deActive')">
+                    <form method="post" onsubmit="return confirmAction(@item.Status, 'deActive')">
                         <button type="submit" class="btn btn-danger">Pasif Yap</button>
                     </form>
                 }
                 else
                 {
-                    <form method="post" onsubmit="return confirmAction(@item.CommentID, 'Active')">
+                    <form method="post" onsubmit="return confirmAction(@item.Status, 'Active')">
                         <button type="submit" class="btn btn-success">Aktif Yap</button>
                     </form>
                 }
 
-                <button type="submit" class="btn btn-primary" onclick="reviewComment(@item.CommentID)">İncele</button>
+                <button type="submit" class="btn btn-primary" onclick="reviewComment(@item.CategoryID)">İncele</button>
 
-                <form method="post" onsubmit="deleteComment(@item.CommentID); return false;">
+                <form method="post" onsubmit="deleteComment(@item.CategoryID); return false;">
                     <button type="submit" class="btn btn-warning">Sil</button>
                 </form>
             </li>
@@ -142,8 +143,9 @@
         return false;
     }
 
-    function reviewComment(id){
+    function reviewComment(id) {
         window.location.href = "/Admin/Comment/ReviewComment?id=" + id;
     }
 
 </script>
+

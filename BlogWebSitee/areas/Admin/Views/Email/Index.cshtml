@@ -1,8 +1,100 @@
-﻿
+﻿@using BlogWebSite_Entity
+@model MailModel
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
+<link href="https://fonts.googleapis.com/css?family=Lora|Merriweather:300,400" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
+<form id="updateForm" method="post" onsubmit="updateMail(event)" style="margin-left:50px">
+    <div class="columns is-multiline">
+        <div class="column is-half">
+            <div class="box">
+                <div class="field">
+                    <label class="label">ID</label>
+                    <div class="control">
+                        <input class="input" type="text" name="MailID" value="@Model.MailID" readonly>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Sistem Mail Adresi</label>
+                    <div class="control">
+                        <input class="input" type="text" name="SenderMail" value="@Model.SenderMail">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Sistem Mail Şifresi</label>
+                    <p style="color:red">
+                        (Güvenlik gereği verileriniz şifrelenerek tutulmaktadır lütfen değiştirmek istediğiniz şifreyi metin halinde giriniz !) 
+                    </p>
+                    <div class="control">
+                        <input class="input" type="text" name="SenderMailPassword" value="@Model.SenderMailPassword">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Alıcı Mail Adresi</label>
+                    <div class="control">
+                        <input class="input" type="text" name="ReceiverMail" value="@Model.ReceiverMail">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">SMTP</label>
+                    <div class="control">
+                        <input class="input" type="text" name="SMTP" value="@Model.SMTP">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Port</label>
+                    <div class="control">
+                        <input class="input" type="text" name="Port" value="@Model.Port">
+                    </div>
+                </div>
+                <button type="submit" class="button is-primary" id="save-button">Güncelle</button>
+            </div>
+            </div>
+        </div>
+</form>
+<script>
+    function updateMail(event) {
+        event.preventDefault(); // Form gönderimini engelle
+
+        var formData = new FormData($("#updateForm")[0]);
+
+        $.ajax({
+            url: "/Admin/Email/UpdateEmail",
+            type: "PUT",
+            data: formData,
+            contentType: false,
+            processData: false,
+
+            success: function (response) {
+                if (response.success) {
+                    swal.fire({
+                        title: "İşlem Başarılı",
+                        text: "Değişiklikler için sayfayı yenileniyor !",
+                        icon: "success",
+                        button: "Tamam",
+                    }).then(() => {
+                        window.location.href = "Index";
+                    });
+                }
+                else {
+                    swal.fire({
+                        title: "İşlem başarısız !",
+                        icon: "error",
+                        button: "Tamam",
+                    })
+                }
+            },
+            error: function () {
+                alert("İşlem başarısız oldu");
+            }
+        });
+    }
+</script>
