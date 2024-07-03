@@ -29,7 +29,7 @@ namespace BlogWebSite_BussinessLayer.Manager
 
         public CategoryModel GetById(int id)
         {
-            throw new NotImplementedException();
+            return categoryDal.GetById(id);
         }
 
         public List<CategoryModel> ListAll()
@@ -39,6 +39,7 @@ namespace BlogWebSite_BussinessLayer.Manager
 
         public bool Update(CategoryModel value)
         {
+            categoryDal.Update(value);
             return true;
         }
     }

@@ -41,7 +41,7 @@
                     </form>
                 }
 
-                <button type="submit" class="btn btn-primary" onclick="reviewComment(@item.CategoryID)">İncele</button>
+                <button type="submit" class="btn btn-primary" onclick="reviewCategory(@item.CategoryID)">İncele</button>
 
                 <form method="post" onsubmit="deleteComment(@item.CategoryID); return false;">
                     <button type="submit" class="btn btn-warning">Sil</button>
@@ -143,8 +143,8 @@
         return false;
     }
 
-    function reviewComment(id) {
-        window.location.href = "/Admin/Comment/ReviewComment?id=" + id;
+    function reviewCategory(id) {
+        window.location.href = "/Admin/Category/ReviewCategory?id=" + id;
     }
 
 </script>

@@ -1,7 +1,8 @@
 ﻿@using BlogWebSite_Entity
 @model CategoryModel
+
 @{
-    ViewData["Title"] = "ReviewComment";
+    ViewData["Title"] = "ReviewCategory";
     Layout = "~/areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
@@ -11,45 +12,60 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-<form id="updateForm" method="post" onsubmit="updateQuates(event)" style="margin-left:50px">
+<form id="updateForm" method="post" onsubmit="updateCategory(event); return false;" style="margin-left:50px">
     <div class="columns is-multiline">
         <div class="column is-half">
             <div class="box">
                 <div class="field">
                     <label class="label">Kategori ID</label>
                     <div class="control">
-                        <input class="input" type="text" name="QuotesID" value="@Model.CategoryID" readonly>
+                        <input class="input" type="text" name="CategoryID" value="@Model.CategoryID" readonly>
                     </div>
                 </div>
                 <div class="field">
+                    <label class="label">Kategori Durumu</label>
+                    <div class="control">
+                        @if (Model.Status is true)
+                        {
+                            <input class="input" type="text" name="Status" value="@Model.Status.ToString()" style="color:green;" value="aktif" readonly>
+                        }
+                        else
+                        {
+                            <input class="input" type="text" name="Status" value="@Model.Status.ToString()" style="color:red;" value="pasif" readonly>
+                        }
+                    </div>
+                </div>
+
+                <div class="field">
                     <label class="label">Kategori Adı</label>
                     <div class="control">
-                        <input class="input" type="text" name="QuotesWriterName" value="@Model.CategoryName">
+                        <input class="input" type="text" name="CategoryName" value="@Model.CategoryName" >
                     </div>
                 </div>
                 <div class="field">
                     <label class="label">Kategori Açıklaması</label>
                     <div class="control">
-                        <textarea class="textarea" rows="10" name="QuotesDescription" value="@Model.CategoryDescription">@Model.CategoryDescription</textarea>
+                        <input class="input" name="CategoryDescription" value="@Model.CategoryDescription" ></input>
                     </div>
                 </div>
+                <br />
+                <button type="submit" class="btn btn-danger">Kaydet</button>
             </div>
+           
         </div>
     </div>
     <br>
-    <button type="submit" class="button is-primary" id="save-button">Güncelle</button>
 </form>
-
-
 <script>
-    function updateQuates(event) {
-        event.preventDefault(); // Form gönderimini engelle
+    function updateCategory(event) {
+
+        event.preventDefault();
 
         var formData = new FormData($("#updateForm")[0]);
 
         $.ajax({
-            url: "/Admin/Quates/EditQuates",
-            type: "POST",
+            url: "/Admin/Category/EditCategory",
+            type: "PUT",
             data: formData,
             contentType: false,
             processData: false,
@@ -60,22 +76,22 @@
                         title: "İşlem Başarılı !",
                         text: "Yönlendiriliyorsunuz...",
                         icon: "success",
-                        button: "Tamam",
+                        button: "button",
                     }).then(() => {
-                        window.location.href = "Index";
+                        window.location.reload();
                     });
                 }
                 else {
                     swal.fire({
                         title: "İşlem başarısız !",
-                        icon: "error",
+                        text: "Lütfen tekrar deneyiniz..",
                         button: "Tamam",
-                    })
+                        icon: "error",
+                    });
                 }
             },
-            error: function () {
-                alert("İşlem başarısız oldu");
-            }
         });
     }
 </script>
+
+
